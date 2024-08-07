@@ -1,0 +1,19 @@
+apiVersion: uds.dev/v1alpha1
+kind: Package
+metadata:
+  name: svelte
+  namespace: svelte-ui
+spec:
+  network:
+    expose:
+      - service: ui
+        selector:
+          app: ui
+        host: svelte
+        gateway: tenant
+        port: 3000
+    allow:
+      - direction: Ingress
+        remoteGenerated: IntraNamespace
+      - direction: Egress
+        remoteGenerated: IntraNamespace
