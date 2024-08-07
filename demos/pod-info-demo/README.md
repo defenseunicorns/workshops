@@ -12,3 +12,5 @@
 uds zarf package create
 uds zarf package deploy
 ```
+
+Once the package is deployed into the cluster the Pod Info app is accessible via browser at https://podinfo.uds.dev/
