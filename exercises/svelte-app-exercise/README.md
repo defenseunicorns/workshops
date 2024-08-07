@@ -1,5 +1,5 @@
 # Deploying Svelte App into [UDS Core](https://uds.defenseunicorns.com/core/)
-This exercise will lead you through building and deploying a Svelte UI application zarf package.
+This exercise will lead you through building and deploying a Svelte UI application using zarf package.
 
 This package will consist of
 
@@ -20,18 +20,6 @@ The meat and potatoes of the package are already here. Running these will fail i
 # List all available UDS Tasks defined in the tasks.yaml
 # Study what these tasks do
 uds run --list
-
-# Build the local docker image
-uds run build-local-image
-
-# Create the Zarf package
-uds run create-zarf-package
-
-# Deploy the Zarf package
-uds run deploy-zarf-package
-
-# Build the image, create the zarf package, redeploy, and cycle the pod
-uds run update-zarf-package
 ```
 
 ### Context on what these tasks are doing so you can do them too
