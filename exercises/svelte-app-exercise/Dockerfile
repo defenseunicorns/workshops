@@ -1,4 +1,4 @@
-# Uncommnent the following lines to build the image for this application
+# Uncomment the following lines to build the image for this application
 
 # FROM node:18-alpine AS builder
 # WORKDIR /app
