@@ -27,7 +27,6 @@ tasks:
     description: Build the UI image
     actions:
       - cmd: docker build -t ghcr.io/defenseunicorns/workshops/ui:0.0.1 .
-        #dir: src/ui
 
   - name: package-ui
     description: Package(zarf) the UI image
@@ -36,7 +35,6 @@ tasks:
       - task: build-ui-image
       - task: create:package
         with:
-          #path: src/ui
           options: -o build
 
   - name: update-ui
