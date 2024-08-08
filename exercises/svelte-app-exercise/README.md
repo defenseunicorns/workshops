@@ -1,5 +1,5 @@
 # Deploying Svelte App into [UDS Core](https://uds.defenseunicorns.com/core/)
-This exercise will lead you through building and deploying a Svelte UI application using zarf package.
+This exercise will lead you through building and deploying a Svelte UI application using a zarf package.
 
 This package will consist of
 
