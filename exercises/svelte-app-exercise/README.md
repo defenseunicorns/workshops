@@ -7,14 +7,12 @@ This package will consist of
 * Basic manifests needed to deploy the application
 * A UDS custom resource to expose this application and create network policies for us. This will leverage the UDS Operator(Pepr) found in UDS Core to automatically create and configure those resources for us.
 
-### [UDS Core Docs](https://uds.defenseunicorns.com/core/)
-
 ### Prerequisite:
 
 - UDS Core Deployed and Running
 
 ### Lets Begin
-The meat and potatoes of the package are already here. Running these will fail initially. The files they are referencing have commented out pieces to make sure you get eyes on the key pieces to make this example package work. We encourage you to follow the bread crumbs found in the [task.yaml](tasks.yaml) file at the calls you will be making defined below.
+The meat and potatoes of the package are already here. Running these will fail initially. The files they are referencing have commented out pieces to make sure you get eyes on the key pieces to make this example package work. We encourage you to follow the bread crumbs starting in the [task.yaml](tasks.yaml) file at the calls you will be making defined below.
 
 ```bash
 # List all available UDS Tasks defined in the tasks.yaml
