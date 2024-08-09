@@ -1,0 +1,17 @@
+tasks:
+  - name: build-mattermost-bundle
+    description: "Build the Mattermost UDS bundle"
+    actions:
+      - task: build-dev-secrets
+      - task: build-namespaces
+      - cmd: uds create . --confirm
+
+  - name: build-dev-secrets
+    actions:
+      - cmd: uds zarf package create . --confirm
+        dir: ./dev-secrets
+
+  - name: build-namespaces
+    actions:
+      - cmd: uds zarf package create . --confirm
+        dir: ./namespaces
