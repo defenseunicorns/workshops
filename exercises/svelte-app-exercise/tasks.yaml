@@ -6,14 +6,14 @@ includes:
   - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v0.9.0/tasks/setup.yaml
 
 tasks:
-  - name: cluster-up
-    description: Deploy k3d test cluster
+  - name: create-cluster
+    description: Deploy k3d test cluster, this contains uds core
     actions:
-      # - task: setup:k3d-test-cluster
-      - task: uds deploy uds-bundle-k3d-core-slim-dev-*.tar.zst --confirm
+      - task: setup:k3d-test-cluster
+      # - task: uds deploy uds-bundle-k3d-core-slim-dev-*.tar.zst --confirm
 
   - name: destroy
-    description: Destroy the K3d cluster
+    description: Destroy K3d cluster
     actions:
       - cmd: k3d cluster delete -a
 
@@ -22,24 +22,29 @@ tasks:
     actions:
       - cmd: rm -rf build
 
-  ### UI Tasks ###
-  - name: build-ui-image
-    description: Build the UI image
+  ### Svelte App tasks Tasks ###
+  - name: build-local-image
+    description: Build the image defined in the local Dockerfile
     actions:
       - cmd: docker build -t ghcr.io/defenseunicorns/workshops/ui:0.0.1 .
 
-  - name: package-ui
-    description: Package(zarf) the UI image
+  - name: create-zarf-package
+    description: Creates the zarf package for this application
     actions:
       - cmd: mkdir -p build
-      - task: build-ui-image
       - task: create:package
         with:
           options: -o build
 
-  - name: update-ui
-    description: Build the UI image, redeploy, and cycle the pod
+  - name: deploy-zarf-package
+    description: Deploy the zarf package to the cluster
     actions:
-      - task: package-ui
       - cmd: uds zarf package deploy build/zarf-package-svelte-ui-*-0.0.1.tar.zst --confirm
+
+  - name: update-zarf-package
+    description: Build the image, create the zarf package, redeploy, and cycle the pod
+    actions:
+      - task: build-local-image
+      - task: create-zarf-package
+      - task: deploy-zarf-package
       - cmd: uds zarf tools kubectl delete pod -n svelte-ui $(uds zarf tools kubectl get pods -n svelte-ui | grep ui- | awk '{print $1}')
