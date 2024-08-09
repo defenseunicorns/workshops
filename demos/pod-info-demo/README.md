@@ -10,7 +10,9 @@
 
 ```bash
 uds zarf package create
-uds zarf package deploy
+uds zarf package deploy {zarf-package.tar.zst}
 ```
+> [!NOTE]
+> The deployment of this app can be monitored by running `uds z t m` and monitoring all namespaces or the the 'podinfo' namespace. 
 
 Once the package is deployed into the cluster the Pod Info app is accessible via browser at https://podinfo.uds.dev/
