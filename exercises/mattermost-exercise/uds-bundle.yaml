@@ -5,8 +5,6 @@ metadata:
   version: 0.0.1
 
 packages:
-  # Uncomment the following packages to deploy k3d and uds-core-slim locally
-  # This will working on top of uds core slim demo
   # - name: uds-k3d-dev
   #   repository: ghcr.io/defenseunicorns/packages/uds-k3d
   #   ref: 0.8.0
