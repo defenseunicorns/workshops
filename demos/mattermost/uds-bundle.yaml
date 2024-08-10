@@ -15,7 +15,7 @@ packages:
 
   - name: core-slim-dev
     path: ./core-slim
-    ref: "0.24.0"
+    ref: "0.25.2" # Update this to the latest version of uds-core-slim
     overrides:
       keycloak:
         keycloak:
