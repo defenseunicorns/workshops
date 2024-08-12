@@ -77,7 +77,7 @@ uds deploy . --confirm
 
 ### Put k3d, UDS Core, and all of the application into a single UDS Bundle.
 
-To get all of the components needed into a single zarf package to deploy on top of a Kubernetes Distribution (in the case k3d), follow the instructions in ./core-slim/.gitkeep, then add the following code to `uds-bundle.yaml` in this directory under the `packages:` definition.
+To get all of the components needed into a single zarf package, to deploy on top of a Kubernetes Distribution (in the case k3d), follow the instructions in ./core-slim/.gitkeep, then add the following code to `uds-bundle.yaml` in this directory under the `packages:` definition.
 
 ```bash
   - name: uds-k3d-dev
