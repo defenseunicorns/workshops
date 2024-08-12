@@ -1,4 +1,4 @@
-<span style="color:red">**EXTREME WARNING**</span> **THIS PAGE IS CURRENTLY UNDER** <sub><sup>construction</sup></sub>
+Notice: This branch is only to be used for educational purposes. This should not be used in any production environment.
 
 # Workshops
 
