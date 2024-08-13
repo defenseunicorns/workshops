@@ -2,8 +2,6 @@
 
 - Add the application Pod Info from /demos/pod-info-demo into this UDS Bundle. For this tutorial add a reference in `uds-bundle` with the `path:` definition.
 
-# Exercise: Addition Task
-
 - Add an additional task to individually build the Pod Info Zarf Package.
 
 Build the zarf package with a UDS task. Then deploy the entire UDS Bundle, similar to above with:
