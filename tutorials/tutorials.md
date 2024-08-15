@@ -28,6 +28,7 @@ brew tap defenseunicorns/tap && brew install \
 zarf \
 k3d \
 kubectl \
+k9s \
 helm \
 uds
 
