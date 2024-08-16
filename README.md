@@ -11,6 +11,10 @@ Repo to track and build content to be used for Growth Workshops
 - Zarf _[Docs](https://docs.zarf.dev/)_
 - _[UDS Core](https://github.com/defenseunicorns/uds-core)_
 
+## Developing UDS Bundles
+
+- _[UDS Common](https://github.com/defenseunicorns/uds-common)_
+
 ## Agenda
 
 - UDS Flow
