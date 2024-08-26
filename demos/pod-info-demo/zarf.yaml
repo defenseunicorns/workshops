@@ -9,7 +9,7 @@ components:
     required: true
     charts:
       - name: podinfo
-        version: 6.4.0
+        version: 6.7.0
         namespace: podinfo
         # In this case `url` will load the helm chart located in the podinfo git repository
         url: https://github.com/stefanprodan/podinfo.git
@@ -18,8 +18,8 @@ components:
         valuesFiles:
           - values.yaml
     images:
-      - curlimages/curl:7.69.0
-      - ghcr.io/stefanprodan/podinfo:6.4.0
+      - curlimages/curl:8.9.1
+      - ghcr.io/stefanprodan/podinfo:6.7.0
       - giantswarm/tiny-tools
       - stefanprodan/grpc_health_probe:v0.3.0
       # Cosign artifacts for images - helm-charts - demo-helm-charts
