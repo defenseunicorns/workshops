@@ -20,6 +20,7 @@ components:
     images:
       - curlimages/curl:8.9.1
       - ghcr.io/stefanprodan/podinfo:6.7.0
+#      - ghcr.io/stefanprodan/podinfo:6.4.0
       - giantswarm/tiny-tools
       - stefanprodan/grpc_health_probe:v0.3.0
       # Cosign artifacts for images - helm-charts - demo-helm-charts
