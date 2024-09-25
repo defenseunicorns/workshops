@@ -1,3 +1,5 @@
+.DS_Store
+*.zst
 core-slim/zarf-package-core-slim-dev-*.tar.zst
 dev-secrets/zarf-package-dev-secrets-*.tar.zst
 namespaces/zarf-package-dev-namespaces-*.tar.zst
