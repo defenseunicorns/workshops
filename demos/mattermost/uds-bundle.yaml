@@ -2,9 +2,15 @@ kind: UDSBundle
 metadata:
   name: k3d-mattermost-demo
   description: A UDS bundle for deploying the UDS Mattermost Factory with uds-core slim on a local cluster
-  version: 0.0.1
+  version: 0.0.2
 
 packages:
+  # - name: uds-core
+  #   repository: ghcr.io/defenseunicorns/packages/private/uds/core
+  #   ref: 0.27.3-unicorn
+  #   optionalComponents:
+  #     - uds-runtime
+
   - name: dev-minio
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
     ref: 0.0.2
@@ -25,7 +31,8 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-    ref: 1.12.2-uds.2-upstream
+  #  ref: 1.12.2-uds.2-upstream
+    ref: 1.13.0-uds.1-upstream 
     overrides:
       postgres-operator:
         uds-postgres-config:
@@ -56,7 +63,8 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-    ref: 9.10.1-uds.0-upstream
+#    ref: 9.10.1-uds.0-upstream
+    ref: 9.11.1-uds.0-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets
