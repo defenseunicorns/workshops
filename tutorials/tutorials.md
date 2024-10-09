@@ -16,7 +16,7 @@ Before beginning this tutorial you will need the following:
 
 - A text editor or development environment such as VSCode
 - UDS CLI installed on your $PATH [Install UDS CLI](https://github.com/defenseunicorns/uds-cli)
-- Docker installed and running (for building and testing locally)
+- Docker installed and running [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - K3D installed and running
 - UDS-core installed into K3D
   The `k3d-core-slim-dev` bundle will accomplish both tasks for you [K3D Core Slim Dev Bundle](https://github.com/defenseunicorns/uds-core) as well as ensuring any required Custom Resource Definitions (CRD's) are installed as well.
