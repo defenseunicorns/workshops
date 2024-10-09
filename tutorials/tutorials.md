@@ -27,7 +27,7 @@ Quick start using [Homebrew](https://brew.sh/):
 #Install homebrew:
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-#install required components and tools:
+#Install required components and tools:
 brew tap defenseunicorns/tap && brew install \
 zarf \
 k3d \
