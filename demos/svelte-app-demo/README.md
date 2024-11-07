@@ -13,7 +13,7 @@
 ```bash
 uds run build-ui-image
 uds run package-ui
-uds zarf package deploy {zarf-package.tar.zst}
+uds zarf package deploy build/{zarf-package.tar.zst}
 ```
 > [!NOTE]
 > The deployment of this app can be monitored by running `uds z t m` and monitoring all namespaces or the the 'svelte-ui' namespace. 
