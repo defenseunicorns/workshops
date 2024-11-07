@@ -63,8 +63,8 @@ packages:
 
   - name: mattermost
     repository: ghcr.io/defenseunicorns/packages/uds/mattermost
-#    ref: 9.10.1-uds.0-upstream
-    ref: 9.11.1-uds.0-upstream
+    ref: 9.10.1-uds.0-upstream
+#    ref: 9.11.1-uds.0-upstream
     imports:
       - name: ACCESS_KEY
         package: dev-secrets
