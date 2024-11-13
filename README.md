@@ -1,4 +1,4 @@
-Notice: This branch is only to be used for educational purposes. This should not be used in any production environment.
+Notice: This repo is only to be used for educational purposes and should not be used in a production environment.
 
 # Workshops
 
