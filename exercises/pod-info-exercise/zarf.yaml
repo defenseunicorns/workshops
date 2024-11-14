@@ -9,21 +9,22 @@ components:
     required: true
     charts:
       - name: podinfo
-        version: 6.4.0
+        version: 6.7.0
         namespace: podinfo
         # In this case `url` will load the helm chart located in the podinfo git repository
-        url: #insert the url here
+        url: https://github.com/stefanprodan/podinfo.git
         # By default git will look in the root of the git repository but you can define a sub directory with `gitPath`
         gitPath: charts/podinfo
         valuesFiles:
           - values.yaml
     images:
-      - curlimages/curl:7.69.0
-      - ghcr.io/stefanprodan/podinfo:6.4.0
+      - curlimages/curl:8.9.1
+      - ghcr.io/stefanprodan/podinfo:6.7.0
+#      - ghcr.io/stefanprodan/podinfo:6.4.0
       - giantswarm/tiny-tools
       - stefanprodan/grpc_health_probe:v0.3.0
       # Cosign artifacts for images - helm-charts - demo-helm-charts
-      - #ghcr.io url here, followed by the signature
+      - ghcr.io/stefanprodan/podinfo:sha256-57a654ace69ec02ba8973093b6a786faa15640575fbf0dbb603db55aca2ccec8.sig
   - name: uds-package-podinfo
     required: true
     manifests:
