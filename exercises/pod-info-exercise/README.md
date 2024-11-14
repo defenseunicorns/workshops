@@ -1,20 +1,18 @@
-# Exercise
-
-## Pod Info: UDS Bundle
+# Deploying Pod Info into UDS Core
 
 ### [UDS Core Docs](https://uds.defenseunicorns.com/core/)
 
-### Completing the Exercise
+### Prerequisite:
 
-In this exercise, the goal is to package an app that has existing helm charts and images. The steps are:
+- UDS Core Deployed and Running
 
-1. Create a zarf package in `zarf.yaml`
-2. Create a UDS Bundle (integrates app into UDS Core) in `uds-package.yaml`
-3. The helm charts and images can be found here https://github.com/stefanprodan/podinfo
-4. The ends state is to run the follow commands and be able to access the Pod Info app in the browser with the url `podinfo.uds.dev`
+### Zarf Package and Deploy Pod Info
 
 ```bash
-uds run deploy
 uds zarf package create
-uds zarf package deploy
+uds zarf package deploy {zarf-package.tar.zst}
 ```
+> [!NOTE]
+> The deployment of this app can be monitored by running `uds z t m` and monitoring all namespaces or the the 'podinfo' namespace. 
+
+Once the package is deployed into the cluster the Pod Info app is accessible via browser at https://podinfo.uds.dev/
