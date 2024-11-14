@@ -13,7 +13,7 @@ Repo to track and build content to be used for Growth Workshops
 
 ### Prerequisites
 
-Before beginning this tutorial you will need the following:  
+Before beginning this tutorial you will need the following:
 - A text editor or development environment such as VSCode
 - UDS CLI installed on your $PATH Install UDS CLI
 - Docker installed and running Docker Desktop
@@ -22,13 +22,13 @@ Before beginning this tutorial you will need the following:
 
 ### Quick start using Homebrew
 
-Install homebrew  
+Install homebrew
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 #Follow any post-installation instructions required by Homebrew
 ```
 
-Install required packages  
+Install required packages
 ```
 #Install required components and tools:
 brew tap defenseunicorns/tap && brew install \
@@ -56,8 +56,10 @@ uds
 - UDS Flow
 - Deploy _[UDS Core](https://github.com/defenseunicorns/uds-core)_
 - Zarf _[Tutorial](https://docs.zarf.dev/tutorials/0-creating-a-zarf-package/)_
-- UDS Bundle Tutorial in /tutorial/tutorials.md
-- Deploying Apps and Developing UDS Bundles
+- Podinfo deploy, follow instructions in exercises/pod-info-exercise/README.md
+- Svelte UDS Bundle, follow instructions in exercises/svelte-app-exercise/svelte-uds-exercise.md
+- Mattermost bundle, follow instruction in exercises/mattermost-exercise/mattermost-exercise.md
+
 
 ## Current Layout
 
