@@ -1,55 +1,289 @@
-# Deploying Mattermost into [UDS Core](https://uds.defenseunicorns.com/core/)
+# Creating a UDS Bundle for Mattermost
 
-This exercise will lead you through building and deploying Mattermost using UDS Bundle, UDS Tasks, and Zarf Packages.
+## Introduction
 
-This package will consist of
+In this tutorial, we will demonstrate the process to create a UDS (Unicorn Delivery Service) bundle for Mattermost, from defining a `uds-bundle.yaml`, integrating with associated Zarf packages, and finally building the bundle with UDS CLI commands.
 
-- Zarf configured Kubernetes namespaces for postgres-operator's cross namespace secret creation
-- Zarf configured secret management with minio
-- UDS Bundle with all of the configuration to deploy Mattermost into a cluster
+Although UDS (and Zarf before it) were designed to support air-gapped environments natively, this tutorial makes use of Github's container registry so an Internet connection is required. As an alternative, you could follow the Zarf tutorials at [Zarf Docs](https://docs.zarf.dev/) to build the required packages ahead of time and reference them locally instead.
 
-This deploys a mattermost server you can run on your local machine, packaged up as a single artifact (UDS Bundle tarball).
+## System Requirements
 
-### Prerequisite:
+- You'll need an internet connection to pull down the required artifacts/packages required to build the bundle in this tutorial.
 
-- UDS Core Deployed and Running
-  OR
-- Build and configure k3d/uds core into your own UDS Bundle (Follow up exercise at the end)
+## Prerequisites
 
-### Lets Begin
+Before beginning this tutorial you will need the following:
 
-The meat and potatoes of the package are already here. Running these will fail initially. The files they are referencing have commented out pieces to make sure you get eyes on the key pieces to make this example package work. We encourage you to follow the bread crumbs starting in the [task.yaml](tasks.yaml) file at the calls you will be making defined below.
+- A text editor or development environment such as VSCode
+- UDS CLI installed on your $PATH [Install UDS CLI](https://github.com/defenseunicorns/uds-cli)
+- Docker installed and running [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- K3D installed and running
+- UDS-core installed into K3D
+  The `k3d-core-slim-dev` bundle will accomplish both tasks for you [K3D Core Slim Dev Bundle](https://github.com/defenseunicorns/uds-core) as well as ensuring any required Custom Resource Definitions (CRD's) are installed as well.
+
+Quick start using [Homebrew](https://brew.sh/):
 
 ```bash
-# List all available UDS Tasks defined in the tasks.yaml
-# Study what these tasks do
-uds run --list
+#Install homebrew:
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+#Install required components and tools:
+brew tap defenseunicorns/tap && brew install \
+zarf \
+k3d \
+kubectl \
+k9s \
+helm \
+uds
+
+uds deploy k3d-core-demo:0.29.0 --confirm
 ```
 
-### Context on what these tasks are doing so you can do them too
+## Putting Together a UDS Bundle
 
-UDS tasks are here to make life simpler, but you could perform all of these tasks running the same `uds` commands that the tasks are ultimately using. If you wanted to.
+In order to create a UDS bundle, you first need to have an idea of what application(s) you want to package. In this example, we will be packaging Mattermost, but the steps and tools used below are applicable for other applications as well.
 
-## Components
+### Creating the Bundle Definition
 
-### Local
+A `uds-bundle.yaml` file allows us to bundle all required metadata and the associated set of packages we want to deploy. We start a bundle definition by setting the kind to 'UDSBundle' and required metadata including the `name`,`description`, and `version` of the bundle. Create a new `uds-bundle.yaml` with the following content:
 
-The uds-bundle.yaml has multiple components in in, some of which are local references and others are remote oci references. This is to show the multiple avenues to package up applications. For air gapped deployment, The entire UDS Bundle will be built into one single artifact `uds-*.tar.zst`.
+```yaml
+kind: UDSBundle
+metadata:
+  name: k3d-mattermost-demo
+  description: A UDS bundle for deploying the UDS Mattermost Factory with uds-core slim on a local cluster
+  version: 0.0.1
 
-The ./core-slim (not used until "addition exercises" at the end), ./dev-secrets, and ./namespaces are all local references (and are pre-built). Take a look at each to see what is happening. They are referenced in `uds-bundle.yaml` with the `path:` definition.
+packages:
+# Add packages here
+```
 
-**note:** for convenience, some zarf packages are committed to the repo. This is not recommended, instead we would publish those as OCI artifacts (`uds zarf tools registry push ...`).
+### Pre-create any namespaces that need to exist early in the installation process
 
-### Remote
+We use a ZarfPackageConfig kind to pre-create any early namespaces. This isn't always required but can be helpful when services require the presence of a namespace ahead of time (typically for cross-namespace secret storage).
+Create a `mattermost-ns.yaml` in a `namespaces` sub-directory:
 
-In this example the components of this application that pull from an oci registry are in `uds-bundle.yaml` directly. All of the applications that pull from the internet have the `repository:` definition followed by the oci registry url. Take a look at the `uds-bundle.yaml to to see these components.
+```yaml
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: mattermost
+```
 
-## Build and deploy the UDS Bundle
+Create a `zarf.yaml` also in the `namespaces` directory:
 
-### Once all of the code is uncommented, you can build and deploy a UDS Bundle with the two commands below
+```yaml
+# Deployed prior to the packages to facilitate use of the postgres-operator cross namespace secret creation
+kind: ZarfPackageConfig
+metadata:
+  name: dev-namespaces
+  description: "create namespaces for cross-ns secret functionality of pg operator"
+  version: 0.1.0
 
-```sh
+components:
+  - name: deploy-namespace-for-cross-ns-secrets-test
+    required: true
+    manifests:
+      - name: dev-namespaces
+        files:
+          - mattermost-ns.yaml
+```
+
+### Setting up Dev Secrets
+
+We use this ZarfPackageConfig as part of our UDS Bundle to ensure required secrets are created and made available to downstream services. In this case we're having UDS use `kubectl` to pull a couple secrets that were created by the minio install from the dev-minio namespace then save them as variables for later use.
+Create a `zarf.yaml` file in a `dev-secrets` sub-directory:
+
+```yaml
+kind: ZarfPackageConfig
+metadata:
+  name: dev-secrets
+  version: "0.1.0"
+
+components:
+  - name: minio-password
+    required: true
+    actions:
+      onDeploy:
+        before:
+          - cmd: ./zarf tools kubectl get secret -n dev-minio minio --template='{{ index .data "rootPassword" }}' | base64 -d
+            mute: true
+            setVariables:
+              - name: SECRET_KEY
+                sensitive: true
+          - cmd: ./zarf tools kubectl get secret -n dev-minio minio --template='{{ index .data "rootUser" }}' | base64 -d
+            mute: true
+            setVariables:
+              - name: ACCESS_KEY
+                sensitive: true
+```
+
+### Add the required packages
+
+Our Mattermost Zarf UDS package requires a few supporting packages to exist so we'll define those first since UDS packages inside a bundle are processed serially. Supporting packages in this case include pre-creation of some namespaces to support package-specific requirements, minio (an open source AWS S3 alternative providing object storage), a PostgreSQL relational database operator, and some secrets.
+
+Let's add them to our UDSBundle:
+
+```yaml
+# Namespaces are deployed prior to the packages to facilitate use of the postgres-operator cross namespace secret creation
+- name: dev-namespaces
+  path: ./namespaces
+  ref: 0.1.0
+
+# Minio is an AWS S3 object storage alternative
+- name: dev-minio
+  repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
+  ref: 0.0.2
+
+# PostgreSQL is a relational database management system
+- name: postgres-operator
+  repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
+  ref: 1.12.2-uds.2-upstream
+  overrides:
+    postgres-operator:
+      uds-postgres-config:
+        variables:
+          - name: POSTGRESQL
+            description: "Configure postgres using CRs via the uds-postgres-config chart"
+            path: postgresql
+            default:
+              enabled: true
+              teamId: "uds"
+              volume:
+                size: "10Gi"
+              numberOfInstances: 1
+              users:
+                mattermost.mattermost: []
+              databases:
+                mattermost: mattermost.mattermost
+              version: "14"
+              ingress:
+                - remoteNamespace: mattermost
+
+# Pull required secrets
+- name: dev-secrets
+  path: ./dev-secrets
+  ref: 0.1.0
+  exports:
+    - name: ACCESS_KEY
+    - name: SECRET_KEY
+# Add mattermost here
+```
+
+### Adding the Mattermost Component
+
+Now let's go ahead and add our Mattermost component, add the following to the bottom of our `uds-bundle.yaml`, still inside the `packages` stanza at the bottom:
+
+```yaml
+# Mattermost package
+- name: mattermost
+  repository: ghcr.io/defenseunicorns/packages/uds/mattermost
+  ref: 9.10.1-uds.0-upstream
+  imports:
+    - name: ACCESS_KEY
+      package: dev-secrets
+    - name: SECRET_KEY
+      package: dev-secrets
+  overrides:
+    mattermost:
+      uds-mattermost-config:
+        values:
+          - path: "objectStorage.secure"
+            value: "false"
+          - path: "objectStorage.endpoint"
+            value: "minio.dev-minio.svc.cluster.local:9000"
+          - path: "objectStorage.bucket"
+            value: "uds-mattermost-dev"
+          - path: "postgres.host"
+            value: "pg-cluster.postgres.svc.cluster.local"
+          - path: "postgres.connectionOptions"
+            value: "?connect_timeout=10"
+          - path: "postgres.username"
+            value: "mattermost.mattermost"
+        variables:
+          - name: MATTERMOST_RESOURCES
+            path: "resources"
+            default:
+              limits:
+                cpu: 100m
+                memory: 300Mi
+              requests:
+                cpu: 100m
+                memory: 300Mi
+```
+
+### Defining Build Tasks
+
+UDS Tasks are commands or scripts that are used to perform various actions associated with the UDS bundle. In this tutorial, we're using them to build each of the underlying zarf packages that we created with our `zarf.yaml` files above as well as bundle those packages into our single UDS bundle.
+
+Create a `tasks.yaml` file in the top-level directory for your bundle:
+
+```yaml
+tasks:
+  - name: build-namespaces
+    actions:
+      - cmd: uds zarf package create . --confirm
+        dir: ./namespaces
+
+  - name: build-dev-secrets
+    actions:
+      - cmd: uds zarf package create . --confirm
+        dir: ./dev-secrets
+
+  - name: build-mattermost-bundle
+    description: "Build the Mattermost UDS bundle"
+    actions:
+      - task: build-dev-secrets
+      - task: build-namespaces
+      - cmd: uds create . --confirm
+```
+
+### Building the UDS Bundle
+
+Now that we have created all of the artifacts, we're ready to build the complete Mattermost UDS bundle, run the following command which references the tasks we created in our `tasks.yaml` above:
+
+```bash
 uds run build-mattermost-bundle
-uds deploy . --confirm
-#open a browser to https://chat.uds.dev
 ```
+
+This command will create a UDS bundle in the current directory.
+
+## Conclusion
+
+Congratulations! You've built the Mattermost UDS bundle. Now, you can deploy this bundle using either the K3D cluster you have waiting or another cluster of your choosing:
+
+```bash
+uds deploy uds-bundle-k3d-mattermost-demo-arm64-0.0.1.tar.zst --confirm
+```
+
+## Cleanup and Uninstall
+
+To uninstall the components you installed as part of this tutorial, you can run the following commands:
+
+```bash
+k3d cluster delete uds
+brew uninstall \
+uds \
+zarf \
+kubectl \
+helm \
+k3d
+
+brew untap defenseunicorns/tap
+
+# Remove your tutorial directory
+```
+
+You can uninstall homebrew itself by following the instructions found in [Homebrew's GitHub](https://github.com/homebrew/install#uninstall-homebrew)
+
+## Troubleshooting
+
+If you encounter an error like "Failed to create bundle: unable to read the uds-bundle.yaml file", make sure you are in the correct directory containing the `uds-bundle.yaml` file.
+
+For other issues, check:
+
+1. All required CLI tools (UDS, Zarf) are correctly installed and up to date.
+2. You have necessary permissions to pull images from specified repositories.
+3. You have installed UDS-Core and the required CRD's into your kubernetes cluster.
+4. Your kubernetes cluster, if not using K3D, has a default `storageclass` set.
+5. Check if your network connection is having trouble pulling remote packages or images.
