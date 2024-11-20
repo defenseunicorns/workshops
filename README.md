@@ -2,7 +2,7 @@ Notice: This repo is only to be used for educational purposes and should not be 
 
 # Workshops
 
-Repo to track and build content to be used for Growth Workshops
+Repo to track and build content to be used for Workshops
 
 ## Requirements
 
