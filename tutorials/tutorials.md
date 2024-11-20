@@ -36,7 +36,7 @@ k9s \
 helm \
 uds
 
-uds deploy k3d-core-demo:0.29.0 --confirm
+uds deploy k3d-core-demo:0.31.2 --confirm
 ```
 
 ## Putting Together a UDS Bundle
