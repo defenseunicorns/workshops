@@ -7,7 +7,7 @@ metadata:
 packages:
   # - name: uds-core
   #   repository: ghcr.io/defenseunicorns/packages/private/uds/core
-  #   ref: k3d-core-demo:0.29.0
+  #   ref: k3d-core-demo:0.31.2
   #   optionalComponents:
   #     - uds-runtime
 

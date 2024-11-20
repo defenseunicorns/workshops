@@ -7,7 +7,7 @@ A mattermost server you can run on your local machine, packaged up as a single U
 # Deploy the k3d cluster, UDS-core, and the Mattermost bundle
 
 ```bash
-uds deploy k3d-core-demo:0.26.1
+uds deploy k3d-core-demo:0.31.2
 uds run build-mattermost-bundle
 uds deploy uds-bundle-k3d-mattermost-demo-arm64-0.0.1.tar.zst
 ```
