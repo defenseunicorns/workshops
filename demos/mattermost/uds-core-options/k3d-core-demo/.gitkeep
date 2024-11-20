@@ -3,7 +3,7 @@
 Assumes you're using the k3d-core-demo image from ghcr and are okay with it deleting any existing k3d clusters running on your machine.  
 
 ```bash
-uds deploy k3d-core-demo:0.26.1 --confirm
+uds deploy k3d-core-demo:0.31.2 --confirm
 ```
 
 # Resources
