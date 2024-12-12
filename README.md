@@ -17,6 +17,7 @@ Before beginning this tutorial you will need the following:
 - A text editor or development environment such as VSCode
 - UDS CLI installed on your $PATH Install UDS CLI
 - Docker installed and running Docker Desktop
+  - Note that the Docker environment may need additional RAM resources to complete this guide, up to 24GB. Without enough RAM allocated, some containers may fail to deploy.
 - K3D installed and running
 - UDS-core installed into K3D The k3d-core-slim-dev bundle will accomplish both tasks for you K3D Core Slim Dev Bundle as well as ensuring any required Custom Resource Definitions (CRD's) are installed as well.
 
