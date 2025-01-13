@@ -64,26 +64,20 @@ uds
 
 ## Current Layout
 
-`demos`: Completed demos that are built and deployed with the UDS ecosystem. This is also the solution for the exercises.
+### 1-tutorials
+Introduction to core technologies
+- zarf
+- pepr
+- UDS
 
-- Pod Info: images and helm charts pulled from internet
-- Svelte UI (images and helm charts non-existent)
-- Mattermost
+### 2-exercises
 
-`exercises`: Template and directions to to bring apps into UDS
+`exercises`: Templated exercise for integrating apps into UDS
 
-- <span style="color:green">Easy</span> Pod Info: Build a zarf package/UDS bundle w/ existing helm charts/images.
-- <span style="color:yellow">Moderate</span> Mattermost UDS Bundle
-- <span style="color:red">Moderate/Hard</span> Svelte App: Build a zarf package/UDS bundle with no images or helm charts.
+### 3-solutions
 
-### Complete Solutions
-
+Complete solutions for 2-exercises
 - Deploy an application /demos/pod-info-demo
 - Deploy a web application /demos/svelte-app-demo
 - Deploy Mattermost /demos/mattermost
 
-### Exercises
-
-- Mattermost with a UDS Bundle /exercises/mattermost-exercise/mattermost-exercise.md
-- Svelte App (no images or helm charts) /exercises/svelte-app-exercise/svelte-uds-exercise.md
-- Addition Exercise /exercises/mattermost-exercise/addition-exercises.md
