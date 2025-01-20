@@ -59,27 +59,27 @@ cat <<EOF > uds-package.yaml
 apiVersion: uds.dev/v1alpha1
 kind: Package
 metadata:
-    name: podinfo
-    namespace: podinfo
+  name: podinfo
+  namespace: podinfo
 spec:
-    network:
-        expose:
-            - service: podinfo
-                selector:
-                    app.kubernetes.io/name: podinfo
-                gateway: tenant
-                host: podinfo
-                port: 9898
-        allow:
-            - direction: Egress
-                selector:
-                    app.kubernetes.io/name: podinfo
-                remoteGenerated: Anywhere
-    monitor:
-        - selector:
-                app.kubernetes.io/name: podinfo
-            targetPort: 9797
-            portName: http-metrics
+  network:
+    expose:
+      - service: podinfo
+        selector:
+          app.kubernetes.io/name: podinfo
+        gateway: tenant
+        host: podinfo
+        port: 9898
+    allow:
+      - direction: Egress
+        selector:
+          app.kubernetes.io/name: podinfo
+        remoteGenerated: Anywhere
+  monitor:
+    - selector:
+        app.kubernetes.io/name: podinfo
+      targetPort: 9797
+      portName: http-metrics
 EOF
 ```
 
@@ -90,7 +90,7 @@ uds zarf tools yq uds-package.yaml
 
 ### 10. Deploy the Custom Resource
 ```sh
-zarf tools kubectl apply -f uds-package.yaml
+uds zarf tools kubectl apply -f uds-package.yaml
 ```
 
 ### 11. Watch - What Did Pepr Do?
