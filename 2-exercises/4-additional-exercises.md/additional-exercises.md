@@ -1,18 +1,3 @@
-# Exercise: Add Additional Application
-
-- Add the application Pod Info from /demos/pod-info-demo into this UDS Bundle. For this tutorial add a reference in `uds-bundle` with the `path:` definition.
-
-- Add an additional task to individually build the Pod Info Zarf Package.
-
-Build the zarf package with a UDS task. Then deploy the entire UDS Bundle, similar to above with:
-
-```sh
-uds run build-mattermost-bundle
-uds deploy . --confirm
-#open a browser to https://pocdinfo.uds.dev
-#open a browser to https://chat.uds.dev
-```
-
 # Addition Exercises
 
 ## Single UDS Bundle: k3d, UDS Core, and all the applications
