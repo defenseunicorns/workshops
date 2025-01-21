@@ -1,0 +1,25 @@
+apiVersion: uds.dev/v1alpha1
+kind: Package
+metadata:
+  name: podinfo
+  namespace: podinfo
+spec:
+  network:
+  # Expose rules generate Istio VirtualServices and related network policies
+    expose:
+      - service: podinfo
+        selector:
+          app.kubernetes.io/name: podinfo
+        host: podinfo
+        gateway: tenant
+        port: 9898
+  sso:
+    - name: podinfo-sso
+      clientId: sso-podinfo-uds
+      redirectUris:
+        - "https://podinfo.uds.dev/login"
+      enableAuthserviceSelector:
+        app.kubernetes.io/name: podinfo
+      groups:
+        anyOf:
+          - "/UDS Core/Admin"
