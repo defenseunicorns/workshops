@@ -20,10 +20,8 @@ components:
     images:
       - curlimages/curl:8.9.1
       - ghcr.io/stefanprodan/podinfo:6.7.0
-#      - ghcr.io/stefanprodan/podinfo:6.4.0
       - giantswarm/tiny-tools
       - stefanprodan/grpc_health_probe:v0.3.0
-      # Cosign artifacts for images - helm-charts - demo-helm-charts
       - ghcr.io/stefanprodan/podinfo:sha256-57a654ace69ec02ba8973093b6a786faa15640575fbf0dbb603db55aca2ccec8.sig
   - name: uds-package-podinfo
     required: true
