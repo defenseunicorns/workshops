@@ -1,0 +1,37 @@
+kind: ZarfPackageConfig
+metadata:
+  name: podinfo
+  description: Example showcasing adding sso to an application using UDS
+  version: 0.0.1
+
+variables:
+  - name: DOMAIN
+    description: "Cluster domain"
+    default: "uds.dev"
+  
+  - name: ADMIN_DOMAIN
+    description: "Domain for admin services, defaults to 'admin.uds.dev'"
+    default: "admin.uds.dev"
+
+components:
+  - name: podinfo
+    required: true
+    charts:
+      - name: podinfo
+        version: 6.7.1
+        namespace: podinfo
+        # In this case `url` will load the helm chart located in the podinfo git repository
+        url: https://github.com/stefanprodan/podinfo.git
+        # By default git will look in the root of the git repository but you can define a sub directory with `gitPath`
+        gitPath: charts/podinfo
+        valuesFiles:
+          - values.yaml
+    images:
+      - ghcr.io/stefanprodan/podinfo:6.7.1
+  - name: uds-package-podinfo
+    required: true
+    manifests:
+      - name: podinfo-uds-package
+        namespace: podinfo
+        files:
+          - uds-package.yaml
