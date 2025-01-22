@@ -8,7 +8,7 @@ This repo is only to be used for educational purposes and should not be used in 
 
 ## Prerequisites
 
-Items to complete before starting tutorials can be found in [prerequisite.md](https://github.com/defenseunicorns/workshops/blob/main/prequisite.md).
+Items to complete before starting tutorials can be found in [prerequisite.md](https://github.com/defenseunicorns/workshops/blob/main/prerequisite.md).
 
 ## Resources
 
