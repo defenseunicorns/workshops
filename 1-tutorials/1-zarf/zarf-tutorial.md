@@ -30,23 +30,23 @@ EOF
 ### 2. Download an Example Values File and Review the zarf.yaml
 ```bash
 curl -O https://raw.githubusercontent.com/zarf-dev/zarf/refs/heads/main/examples/helm-charts/values.yaml
-zarf tools yq zarf.yaml
+uds zarf tools yq zarf.yaml
 ```
 
 ### 3. Build the Zarf Podinfo Package
 ```bash
-zarf package create ./ --confirm
+uds zarf package create ./ --confirm
 ls -l zarf-package-*.zst
 ```
 
 ### 4. Look at the Package Software Bill Of Materials (SBOM)
 ```bash
-zarf package inspect zarf-package-*.zst --sbom
+uds zarf package inspect zarf-package-*.zst --sbom
 # Enter OR Ctrl+c when done to exit
 
 # Instruqt alternative
-zarf package inspect zarf-package-*.zst --sbom-out sbom
-zarf tools yq sbom/podinfo/ghcr.io_stefanprodan_podinfo_*.json | more
+uds zarf package inspect zarf-package-*.zst --sbom-out sbom
+uds zarf tools yq sbom/podinfo/ghcr.io_stefanprodan_podinfo_*.json | more
 # Ctrl+c when done to exit
 ```
 
@@ -57,7 +57,7 @@ k3d cluster create zarf-test
 
 ### 6. Perform a Zarf Init
 ```bash
-zarf init
+uds zarf init
 # ? Do you want to pull this init package? y
 # ? Deploy this Zarf package? y
 # ? Deploy the k3s component? N
@@ -66,24 +66,24 @@ zarf init
 
 ### 7. Check What is Deployed
 ```bash
-zarf tools kubectl get pods -A
+uds zarf tools kubectl get pods -A
 ```
 
 ### 8. Deploy the Zarf Podinfo Package
 *(If adventurous, and running locally, turn off the wifi before running the command then back on after deploy completes)*
 ```bash
-zarf package deploy zarf-package-*.zst --confirm
+uds zarf package deploy zarf-package-*.zst --confirm
 ```
 
 ### 9. Check Results
 ```bash
 helm ls -n podinfo
-zarf tools kubectl get all -n podinfo
+uds zarf tools kubectl get all -n podinfo
 ```
 
 ### 10. View the Podinfo Service
 ```bash
-zarf connect --namespace=podinfo --name=podinfo --remote-port=9898 --local-port=9999
+uds zarf connect --namespace=podinfo --name=podinfo --remote-port=9898 --local-port=9999
 # Ctrl+c when done to exit
 
 # For Instruqt
