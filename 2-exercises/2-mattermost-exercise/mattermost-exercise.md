@@ -2,42 +2,17 @@
 
 ## Introduction
 
-In this tutorial, we will demonstrate the process to create a UDS (Unicorn Delivery Service) bundle for Mattermost, from defining a `uds-bundle.yaml`, integrating with associated Zarf packages, and finally building the bundle with UDS CLI commands.
+In this tutorial, we will demonstrate the process to create a UDS bundle for Mattermost, from defining a `uds-bundle.yaml`, integrating with associated Zarf packages, and finally building the bundle with UDS CLI commands.
 
 Although UDS (and Zarf before it) were designed to support air-gapped environments natively, this tutorial makes use of Github's container registry so an Internet connection is required. As an alternative, you could follow the Zarf tutorials at [Zarf Docs](https://docs.zarf.dev/) to build the required packages ahead of time and reference them locally instead.
 
-## System Requirements
+## Internet Connection
 
 - You'll need an internet connection to pull down the required artifacts/packages required to build the bundle in this tutorial.
 
 ## Prerequisites
 
-Before beginning this tutorial you will need the following:
-
-- A text editor or development environment such as VSCode
-- UDS CLI installed on your $PATH [Install UDS CLI](https://github.com/defenseunicorns/uds-cli)
-- Docker installed and running [Docker Desktop](https://www.docker.com/products/docker-desktop/)
-- K3D installed and running
-- UDS-core installed into K3D
-  The `k3d-core-slim-dev` bundle will accomplish both tasks for you [K3D Core Slim Dev Bundle](https://github.com/defenseunicorns/uds-core) as well as ensuring any required Custom Resource Definitions (CRD's) are installed as well.
-
-Quick start using [Homebrew](https://brew.sh/):
-
-```bash
-#Install homebrew:
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-#Install required components and tools:
-brew tap defenseunicorns/tap && brew install \
-zarf \
-k3d \
-kubectl \
-k9s \
-helm \
-uds
-
-uds deploy k3d-core-demo:0.31.2 --confirm
-```
+Please reference the [prerequisite.md](https://github.com/defenseunicorns/workshops/blob/main/prerequisite.md) file in the top level directory.
 
 ## Putting Together a UDS Bundle
 
