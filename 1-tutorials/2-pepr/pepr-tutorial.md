@@ -2,6 +2,10 @@
 
 Now let’s do an exercise with **Pepr**, the Kubernetes controller manager.
 
+For information on Pepr, explore the links below:
+- [Docs](https://docs.pepr.dev/)
+- [GitHub](https://github.com/defenseunicorns/pepr)
+
 ---
 
 ### 1. Create a Cluster with a Lightweight Deploy of UDS Core (~5-10 mins)
