@@ -2,6 +2,11 @@
 
 First, let’s do an exercise with **Zarf**, the air-gap-friendly package/deployment tool.
 
+For information on zarf, explore the links below:
+- [Website](https://zarf.dev/)
+- [Docs](https://docs.zarf.dev/)
+- [GitHub](https://github.com/zarf-dev/zarf)
+
 ---
 
 ### 1. Define a zarf.yaml that Packages the Podinfo Helm Chart

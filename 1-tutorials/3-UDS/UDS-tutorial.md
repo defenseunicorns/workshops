@@ -2,6 +2,10 @@
 
 Now deploy UDS Core and dig into the various components it automates.
 
+For information on UDS, explore the links below:
+- [DOCS](https://uds.defenseunicorns.com/)
+- [UDS Core Github](https://github.com/defenseunicorns/uds-core)
+
 ### Deploy UDS Core K3d demo (~10-20 mins)
 
 ```sh
