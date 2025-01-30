@@ -1,0 +1,15 @@
+apiVersion: uds.dev/v1alpha1
+kind: Package
+metadata:
+  name: podinfo
+  namespace: podinfo
+spec:
+  network:
+  # Expose rules generate Istio VirtualServices and related network policies
+    expose:
+      - service: podinfo
+        selector:
+          app.kubernetes.io/name: podinfo
+        host: podinfo
+        gateway: tenant
+        port: 9898
