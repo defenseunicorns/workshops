@@ -1,0 +1,1 @@
+These tests meant for running in CI (Github). These tests should not be used for production or used in workshop training content.
