@@ -24,7 +24,7 @@ tasks:
             sleep 5
 
             # Create admin user with curl
-            PASSWORD=$(openssl rand -base64 12)
+            PASSWORD=$(openssl rand -base64 15)
             STATE_COOKIE=$(curl --silent --output /dev/null --cookie-jar - http://localhost:8080/ | grep "WELCOME_STATE_CHECKER" | awk '{print $7}')
             curl --silent --show-error http://localhost:8080/ \
               -H "Cookie: WELCOME_STATE_CHECKER=${STATE_COOKIE}" \
