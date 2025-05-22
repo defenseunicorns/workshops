@@ -46,10 +46,6 @@ ls -l zarf-package-*.zst
 
 ### 4. Look at the Package Software Bill Of Materials (SBOM)
 ```bash
-uds zarf package inspect zarf-package-*.zst --sbom
-# Enter OR Ctrl+c when done to exit
-
-# Instruqt alternative
 uds zarf package inspect zarf-package-*.zst --sbom-out sbom
 uds zarf tools yq sbom/podinfo/ghcr.io_stefanprodan_podinfo_*.json | more
 # Ctrl+c when done to exit
