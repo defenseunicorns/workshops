@@ -1,5 +1,14 @@
-# OS
-.DS_Store
-Thumbs.db
-.vscode
+*.tar.gz
 *.tar.zst
+~/
+.DS_Store
+.terraform
+tmp
+zarf-sbom
+sbom
+.cache/
+.idea/
+build/
+
+# Cloned-repo
+**/podinfo/

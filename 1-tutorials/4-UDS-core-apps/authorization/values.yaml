@@ -1,8 +1,0 @@
-# Copyright 2024 Defense Unicorns
-# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
-
-ui:
-  logo: https://avatars.githubusercontent.com/u/87975021?s=200&v=4
-#  logo: https://www.katherinecobb.com/uploads/8/1/3/2/8132467/go-army-beat-navy-banner-black-18-x-36_orig.jpg # Army
-  color: "#000000"
-  message: "Hello from Defense Unicorns!"

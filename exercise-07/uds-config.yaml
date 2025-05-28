@@ -1,0 +1,4 @@
+variables:
+  # zarf package
+  podinfo:
+    PODINFO_REPLICAS: 3

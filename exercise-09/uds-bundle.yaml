@@ -1,0 +1,24 @@
+kind: UDSBundle
+metadata:
+  name: my-bundle
+  version: 0.0.1
+packages:
+  # zarf package info
+  - name: podinfo
+    path: ./
+    ref: 0.0.1
+    overrides:
+      # component of the zarf package
+      podinfo:
+        # helm chart
+        podinfo:
+          variables:
+            - name: PODINFO_REPLICAS
+              path: replicaCount
+              default: 2
+            - name: PODINFO_UI_LOGO
+              path: ui.logo
+            - name: PODINFO_IMAGE
+              path: image.repository
+            - name: PODINFO_TAG
+              path: image.tag

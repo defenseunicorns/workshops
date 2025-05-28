@@ -1,0 +1,62 @@
+includes:
+  - setup: ./setup.yaml
+  - create-deploy: ./create-deploy.yaml
+  - dev: ./dev.yaml
+tasks:
+  - name: default
+    description: Create and deploy UDS pkg / bundle
+    envPath: ./uds.env
+    actions:
+      - task: create-pkg
+      - task: create-bundle
+      - task: deploy-bundle
+  - name: create-pkg
+    description: Create UDS package
+    envPath: ./uds.env
+    actions:
+      - task: create-deploy:create-pkg
+  - name: create-bundle
+    description: Create UDS bundle
+    envPath: ./uds.env
+    actions:
+      - task: create-deploy:create-bundle
+  - name: deploy-bundle
+    description: Deploy UDS bundle
+    envPath: ./uds.env
+    actions:
+      - task: create-deploy:deploy-bundle
+  - name: dev-create-bundle
+    description: Create UDS Dev bundle
+    envPath: ./uds-dev.env
+    actions:
+      - task: dev:create-dev-bundle
+  - name: dev-loop
+    description: Common Dev loop
+    envPath: ./uds-dev.env
+    actions:
+      - task: dev:dev-loop
+  - name: dev-all
+    description: Full Dev loop
+    envPath: ./uds-dev.env
+    actions:
+      - task: dev:dev-all
+      - task: setup:create-doug-user
+        with:
+          keycloak_group: "/UDS Core/Admin"
+  - name: k3d
+    description: Setup K3d cluster
+    actions:
+      - task: setup:k3d-full-cluster
+  - name: dev-k3d
+    description: Setup Dev K3d cluster
+    actions:
+      - task: setup:k3d-test-cluster
+  - name: clean
+    description: Cleanup K3d cluster and artifacts
+    actions:
+      - description: Delete K3d cluster
+        shell:
+          linux: bash
+          darwin: bash
+        cmd: |
+          k3d cluster delete uds

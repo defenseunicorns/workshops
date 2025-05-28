@@ -1,0 +1,5 @@
+variables:
+  podinfo:
+    PODINFO_REPLICAS: 2
+#    PODINFO_IMAGE: #set-by-task#
+#    PODINFO_TAG: #set-by-task#

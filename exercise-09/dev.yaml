@@ -1,0 +1,77 @@
+includes:
+  - create-deploy: ./create-deploy.yaml
+  - setup: ./setup.yaml
+variables:
+  - name: APP_DIR
+    default: ./podinfo
+  - name: PODINFO_TAG
+    default: local-dev
+tasks:
+  - name: set-docker-tag
+    envPath: ./uds-dev.env
+    description: Set Docker tag
+    actions:
+      - description: Docker tag
+        shell:
+          linux: bash
+          darwin: bash
+        cmd: |
+          echo "local-dev-$(date "+%Y%m%d%H%M%S")"
+        mute: true
+        setVariables:
+          - name: PODINFO_TAG
+  - name: docker
+    envPath: ./uds-dev.env
+    description: Docker build
+    actions:
+      - task: set-docker-tag
+      - description: Docker build
+        shell:
+          linux: bash
+          darwin: bash
+        cmd: |
+          cd ${APP_DIR}
+          echo "Building ${PODINFO_IMAGE}:${PODINFO_TAG}..."
+          docker build -t "${PODINFO_IMAGE}:${PODINFO_TAG}" ./
+  - name: create-dev-pkg
+    envPath: ./uds-dev.env
+    description: Create the pkg
+    actions:
+      - task: docker
+      - task: create-deploy:create-pkg
+  - name: create-dev-bundle
+    envPath: ./uds-dev.env
+    description: Create the Dev bundle
+    actions:
+      - task: create-dev-pkg
+      - task: create-deploy:create-bundle
+  - name: dev-loop
+    envPath: ./uds-dev.env
+    description: Create and deploy the Dev package / bundle on an existing cluster
+    actions:
+      - task: create-dev-bundle
+      - description: Set image
+        shell:
+          linux: bash
+          darwin: bash
+        cmd: |
+          echo ${PODINFO_IMAGE}
+        mute: true
+        setVariables:
+          - name: UDS_PODINFO_IMAGE
+      - description: Set tag
+        shell:
+          linux: bash
+          darwin: bash
+        cmd: |
+          echo ${PODINFO_TAG}
+        mute: true
+        setVariables:
+          - name: UDS_PODINFO_TAG
+      - task: create-deploy:deploy-bundle
+  - name: dev-all
+    envPath: ./uds-dev.env
+    description: Dev loop with new cluster
+    actions:
+      - task: setup:k3d-test-cluster
+      - task: dev-loop

@@ -1,0 +1,5 @@
+variables:
+  # zarf package
+  podinfo:
+    PODINFO_REPLICAS: 4
+##    PODINFO_UI_LOGO: ""

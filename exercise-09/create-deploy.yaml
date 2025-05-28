@@ -1,0 +1,36 @@
+tasks:
+  - name: base-create-pkg
+    description: Create UDS package
+    actions:
+      - description: Set podinfo image
+        shell:
+          linux: bash
+          darwin: bash
+      - description: Create podinfo pkg
+        shell:
+          linux: bash
+          darwin: bash
+        cmd: |
+          uds zarf package create --confirm ./ --set PODINFO_IMAGE=${PODINFO_IMAGE} --set PODINFO_TAG=${PODINFO_TAG}
+  - name: create-pkg
+    description: Create and deploy the bundle against an existing cluster
+    actions:
+      - task: base-create-pkg
+  - name: create-bundle
+    description: Create UDS bundle
+    actions:
+      - description: Create test bundle
+        shell:
+          linux: bash
+          darwin: bash
+        cmd: |
+          uds create --confirm
+  - name: deploy-bundle
+    description: Deploy UDS bundle
+    actions:
+      - description: Deploy test bundle
+        shell:
+          linux: bash
+          darwin: bash
+        cmd: |
+          uds deploy --confirm uds-bundle-*.tar.zst
