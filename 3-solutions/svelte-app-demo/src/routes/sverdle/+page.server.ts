@@ -1,3 +1,8 @@
+/**
+ * Copyright 2025 Defense Unicorns
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+ */
+
 import { fail } from '@sveltejs/kit';
 import { Game } from './game';
 import type { PageServerLoad, Actions } from './$types';
