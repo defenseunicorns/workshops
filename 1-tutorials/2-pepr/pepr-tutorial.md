@@ -117,3 +117,4 @@ Open in a browser:
 ```bash
 k3d cluster list
 k3d cluster delete --all
+```
