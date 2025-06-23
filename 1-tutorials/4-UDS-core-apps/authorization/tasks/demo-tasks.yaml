@@ -7,7 +7,7 @@ tasks:
     actions:
       - cmd: |
           uds deploy k3d-core-slim-dev:0.34.0 --confirm
-   
+
   - name: create-keycloak-admin
     actions:
       - description: Sets up the Keycloak admin user for dev/testing if not already created
@@ -42,7 +42,7 @@ tasks:
               --from-literal=password=${PASSWORD} \
               -n keycloak
           fi
-  
+
   - name: create-diane-user
     description: Creates a user named 'diane' in the uds realm of keycloak (using the default admin account)
     actions:
