@@ -1,3 +1,6 @@
+# Copyright 2025 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
 # Uncomment the following lines to build the image for this application
 
 # FROM node:18-alpine AS builder
