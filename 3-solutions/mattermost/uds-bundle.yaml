@@ -8,11 +8,11 @@ metadata:
   version: 0.0.2
 
 packages:
-  # - name: uds-core
-  #   repository: ghcr.io/defenseunicorns/packages/private/uds/core
-  #   ref: k3d-core-demo:0.31.2
-  #   optionalComponents:
-  #     - uds-runtime
+#   - name: uds-core
+#     repository: ghcr.io/defenseunicorns/packages/private/uds/core
+#     ref: k3d-core-demo:0.31.2
+#     optionalComponents:
+#       - uds-runtime
 
   - name: dev-minio
     repository: ghcr.io/defenseunicorns/packages/uds/dev-minio
@@ -34,8 +34,8 @@ packages:
 
   - name: postgres-operator
     repository: ghcr.io/defenseunicorns/packages/uds/postgres-operator
-  #  ref: 1.12.2-uds.2-upstream
-    ref: 1.13.0-uds.1-upstream 
+#    ref: 1.12.2-uds.2-upstream
+    ref: 1.13.0-uds.1-upstream
     overrides:
       postgres-operator:
         uds-postgres-config:

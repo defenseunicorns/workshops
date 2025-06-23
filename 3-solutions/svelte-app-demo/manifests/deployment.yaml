@@ -19,13 +19,13 @@ spec:
         app: ui
     spec:
       containers:
-      - name: ui
-        image: ghcr.io/defenseunicorns/workshops/ui:0.0.1
-        imagePullPolicy: Always
-        resources:
-          requests:
-            cpu: "100m"
-            memory: "128Mi"
-          limits:
-            cpu: "500m"
-            memory: "256Mi"
+        - name: ui
+          image: ghcr.io/defenseunicorns/workshops/ui:0.0.1
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"

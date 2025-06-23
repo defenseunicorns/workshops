@@ -22,25 +22,25 @@ tasks:
     description: Create a Keycloak admin with username admin (to get pass use get-keycloak-admin-password)
     actions:
       - task: demo:create-keycloak-admin
-  
+
   - name: get-keycloak-admin-password
     description: Get the password for the admin user in keycloak
     actions:
       - cmd: |
-          ./zarf tools kubectl get secret keycloak-admin-password -n keycloak -o jsonpath='{.data.password}' | base64 -d 
+          ./zarf tools kubectl get secret keycloak-admin-password -n keycloak -o jsonpath='{.data.password}' | base64 -d
 
   - name: create-doug-user
     description: Create a user named Doug in Keycloak and add to the UDS Core/Admin group
     actions:
       - cmd: |
           uds run setup:create-doug-user --set KEYCLOAK_GROUP="/UDS Core/Admin"
-  
+
   - name: apply-sso-config
     description: Deploy the SSO podinfo package
     actions:
       - cmd: |
           uds zarf tools kubectl apply -f podinfo-sso-package.yaml
-  
+
   - name: remove-sso-config
     description: Remove the SSO config from the podinfo package
     actions:
