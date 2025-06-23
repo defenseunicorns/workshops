@@ -1,0 +1,11 @@
+# Copyright 2024 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+includes:
+  - lint: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.16.2/tasks/lint.yaml
+
+tasks:
+  - name: default
+    description: Create and deploy the nginx package on a fresh cluster
+    actions:
+      - task: lint:all
