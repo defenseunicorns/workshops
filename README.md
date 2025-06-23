@@ -13,7 +13,7 @@ Items to complete before starting tutorials can be found in [prerequisite.md](ht
 ## Resources
 
 - [Workshop Repo](https://github.com/defenseunicorns/workshops)
-- [UDS Docs](https://uds.defenseunicorns.com/docs/why-usd/)
+- [UDS Docs](https://uds.defenseunicorns.com/overview/why-uds/)
 - [Zarf Docs](https://docs.zarf.dev/)
 - [UDS Core](https://github.com/defenseunicorns/uds-core)
 - [UDS Common](https://github.com/defenseunicorns/uds-common)
