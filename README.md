@@ -32,6 +32,7 @@ Introduction to core technologies and Defense Unicorns capabilities:
 - Zarf
 - Pepr
 - UDS
+- Maru (UDS tasks) Runner
 
 ### 2-exercises
 
