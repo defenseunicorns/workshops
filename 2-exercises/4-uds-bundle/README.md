@@ -4,10 +4,16 @@
 
 Now we will build upon the Podinfo Zarf package to create a UDS Package.
 
-### Kick off the deploy for the UDS Core K3d demo (~10-20 mins)
+### Pre-flight check to verify environment is ready (namely that Docker running)
 
 ```console
-uds deploy k3d-core-demo:0.36.0 --confirm
+docker ps
+```
+
+### Kick off the deploy for the UDS Core K3d demo (~10-20 mins) - can continue with next steps in another window
+
+```console
+uds deploy k3d-core-demo:0.45.1 --confirm
 ```
 
 ### Review the updated zarf.yaml
@@ -72,6 +78,12 @@ uds inspect ./build/uds-bundle-*.zst
 
 Now that we have a UDS Bundle, let’s deploy it.
 
+### Ensure UDS Core is ready before continuing
+
+```console
+helm ls -Aa
+```
+
 ### Deploy the UDS Bundle
 
 ```console
@@ -92,69 +104,60 @@ uds zarf tools kubectl get servicemonitors,podmonitors -A
 }
 ```
 
-### Connect to Keycloak, setup admin user, disable MFA
+### Connect to Keycloak and setup admin user
 
 ```console
 uds zarf connect keycloak
-# Ctrl+c when done to exit
+# follow prompt to get connection URL for the browser
 ```
 
 ```console
-# select "Unicorn Delivery Service - uds" realm from top left dropdown
-# Configure > Authentication (left nav) > Flows (tab) > UDS Authentication > MFA Login (step) > choose "Disabled" from dropdown
-# Configure > Authentication (left nav) > Flows (tab) > UDS Authentication > MFA Login (step) > Username Password Form (step) > drag out above of MFA Login
-# Configure > Authentication (left nav) > Required Actions (tab) > Configure OTP > toggle Enabled option to "Off"
-# Ctrl+c when done to exit
+# define an admin user: `admin`
+# set the admin user password: `<<YOURPASSWORDHERE>>`
+# login
 ```
+
+### In Keycloak's UI, disable MFA
+
+- select "Unicorn Delivery Service - uds" realm from top left dropdown
+- Configure > Authentication (left nav) > Flows (tab) > UDS Authentication > MFA Login (step) > choose "Disabled" from dropdown
+- Configure > Authentication (left nav) > Flows (tab) > UDS Authentication > MFA Login (step) > Username Password Form (step) > drag out above of MFA Login
+- Configure > Authentication (left nav) > Required Actions (tab) > Configure OTP > toggle Enabled option to "Off"
+- Ctrl+c (in the terminal session) when done to exit the Keycloak tunneling
 
 ### Register a user
 
-```console
-# open in a browser
-sso.uds.dev
-# register now (at the bottom)
-```
+- open in a browser: `sso.uds.dev`
+- register now (at the bottom)
 
 ### Add user to group “UDS Core/Admin” in keycloak **uds** realm
 
-```console
-# open in a browser
-keycloak.admin.uds.dev
-# select "Unicorn Delivery Service - uds" realm from top left dropdown
-# Manage > Users (left nav) > [[username]] > Groups (tab) > "Join Group" button
-# UDS Core > Admin > select checkbox & "Join" button
-```
+- open in a browser: `keycloak.admin.uds.dev`
+- select "Unicorn Delivery Service - uds" realm from top left dropdown
+- Manage > Users (left nav) > [[username]] > Groups (tab) > "Join Group" button
+- UDS Core > Admin > select checkbox & "Join" button
 
 ### See the results
 
-```console
-# open in a browser
-podinfo.uds.dev
-```
+- open in a browser: `podinfo.uds.dev`
 
 ### Look at Keycloak
 
-```console
-# open in a browser
-keycloak.admin.uds.dev
-# select "Unicorn Delivery Service - uds" realm from top left dropdown
-# Clients
-# Sessions
-```
+- open in a browser: `keycloak.admin.uds.dev`
+- select "Unicorn Delivery Service - uds" realm from top left dropdown
+- Clients
+- Sessions
 
 ### Look at Grafana
 
-```console
-# open in a browser
-grafana.admin.uds.dev
-# Dashboards (left nav) > New (far right button) > New dashboard (from drop down) > Add visualization (button)
-# select Prometheus as the datasource
-# "A" > Code (toggle from Builder) > paste this code PromQL query:
-# go_memstats_heap_alloc_bytes{pod_name=~"podinfo.*"}
-# Under Options > Legend > Custom (from drop down) > enter this:
-# {{pod_name}}
-# Adjust Timeframe to "Last 15 minutes" & Refresh to "Auto" (from drop downs)
-```
+- open in a browser: `grafana.admin.uds.dev`
+- Dashboards (left nav) > New (far right button) > New dashboard (from drop down) > Add visualization (button)
+- select Prometheus as the datasource
+- "A" > Code (toggle from Builder) > paste this code PromQL query:
+  - `go_memstats_heap_alloc_bytes{pod_name=~"podinfo.*"}`
+- Under Options > Legend > Custom (from drop down) > enter this:
+  - `{{pod_name}}`
+- Adjust Timeframe to "Last 15 minutes" & Refresh to "Auto" (from drop downs)
 
 ## **Update UDS Bundle**
 
@@ -204,10 +207,7 @@ uds deploy ./build/uds-bundle-*.zst --confirm
 
 ### Verify the logo changed
 
-```console
-# open in a browser
-podinfo.uds.dev
-```
+-  open in a browser: `podinfo.uds.dev`
 
 ### Remove the UDS Bundle
 
