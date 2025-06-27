@@ -112,7 +112,7 @@ uds zarf connect keycloak
 ```
 
 - define an admin user: `admin`
-- set the admin user password: `<<YOURPASSWORDHERE>>`
+- set the admin user password: **YOURPASSWORDHERE**
 - login (as admin user)
 
 ### In Keycloak's UI, disable MFA
