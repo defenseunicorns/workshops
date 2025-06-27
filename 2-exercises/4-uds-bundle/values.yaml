@@ -1,3 +1,6 @@
+# Copyright 2025 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
 ui:
   color: "#0d133d"
   message: "greetings from podinfo (as deployed by Zarf)"
