@@ -3,3 +3,5 @@
 Thumbs.db
 .vscode
 *.tar.zst
+
+test-pkg-**/
