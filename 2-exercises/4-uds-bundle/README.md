@@ -111,17 +111,14 @@ uds zarf connect keycloak
 # follow prompt to get connection URL for the browser
 ```
 
-```console
-# define an admin user: `admin`
-# set the admin user password: `<<YOURPASSWORDHERE>>`
-# login
-```
+- define an admin user: `admin`
+- set the admin user password: `<<YOURPASSWORDHERE>>`
+- login (as admin user)
 
 ### In Keycloak's UI, disable MFA
 
-- select "Unicorn Delivery Service - uds" realm from top left dropdown
-- Configure > Authentication (left nav) > Flows (tab) > UDS Authentication > MFA Login (step) > choose "Disabled" from dropdown
-- Configure > Authentication (left nav) > Flows (tab) > UDS Authentication > MFA Login (step) > Username Password Form (step) > drag out above of MFA Login
+- Manage realms > choose "uds - Unicorn Delivery Service" (should be reflected in the top left "Current realm")
+- Configure > Authentication (left nav) > Flows (tab) > UDS Authentication > Conditional OTP (flow) > choose "Disabled" from dropdown
 - Configure > Authentication (left nav) > Required Actions (tab) > Configure OTP > toggle Enabled option to "Off"
 - Ctrl+c (in the terminal session) when done to exit the Keycloak tunneling
 
@@ -133,7 +130,7 @@ uds zarf connect keycloak
 ### Add user to group “UDS Core/Admin” in keycloak **uds** realm
 
 - open in a browser: `keycloak.admin.uds.dev`
-- select "Unicorn Delivery Service - uds" realm from top left dropdown
+- Manage realms > choose "uds - Unicorn Delivery Service" (should be reflected in the top left "Current realm")
 - Manage > Users (left nav) > [[username]] > Groups (tab) > "Join Group" button
 - UDS Core > Admin > select checkbox & "Join" button
 
@@ -166,7 +163,7 @@ Now let’s update a UDS Bundle.
 ### Update the UDS Config to change the replicas
 
 ```console
-uds zarf tools yq uds-config.yaml
+sed -i.bak 's/4/3/g' uds-config.yaml && rm uds-config.yaml.bak && uds zarf tools yq uds-config.yaml
 ```
 
 ### Re-deploy the UDS Bundle
