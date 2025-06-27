@@ -22,6 +22,7 @@ uds run --list
 
 ```sh
 uds run
+uds run default
 ```
 
 ### Run the "example" task
@@ -30,13 +31,13 @@ uds run
 uds run example
 ```
 
-### Run the example task with an argument
+### Run the "example" task with an argument
 
 ```sh
 uds run example --set GREET=Hi
 ```
 
-### Run the example task with an argument via env
+### Run the "example" task with an argument via env
 
 ```sh
 UDS_GREET=Hey uds run example
@@ -48,7 +49,7 @@ UDS_GREET=Hey uds run example
 uds zarf tools yq tasks/additional-tasks.yaml tasks.yaml
 ```
 
-### Run the compliment task
+### Run the "compliment" task
 
 ```sh
 uds run compliment
