@@ -8,7 +8,7 @@ metadata:
 packages:
   # zarf package info
   - name: podinfo
-    path: ../build
+    path: ./build
     ref: 0.0.1
     overrides:
       # component of the zarf package
