@@ -158,7 +158,7 @@ grafana.admin.uds.dev
 
 ## **Update UDS Bundle**
 
-Now let’s do an exercise to update a UDS Bundle.
+Now let’s update a UDS Bundle.
 
 ### Update the UDS Config to change the replicas
 
