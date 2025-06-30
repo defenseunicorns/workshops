@@ -1,0 +1,37 @@
+# Copyright 2025 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+apiVersion: uds.dev/v1alpha1
+kind: Package
+metadata:
+  name: podinfo
+  namespace: podinfo
+spec:
+  network:
+    expose:
+      - service: podinfo
+        selector:
+          app.kubernetes.io/name: podinfo
+        gateway: tenant
+        host: podinfo
+        port: 9898
+    allow:
+      - direction: Egress
+        selector:
+          app.kubernetes.io/name: podinfo
+        remoteGenerated: Anywhere
+  monitor:
+    - selector:
+        app.kubernetes.io/name: podinfo
+      targetPort: 9797
+      portName: http-metrics
+  sso:
+    - name: Demo SSO podinfo
+      clientId: uds-core-podinfo
+      redirectUris:
+        - "https://podinfo.uds.dev/login"
+      enableAuthserviceSelector:
+        app.kubernetes.io/name: podinfo
+      groups:
+        anyOf:
+          - "/UDS Core/Admin"
