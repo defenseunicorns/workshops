@@ -72,7 +72,7 @@ uds run test-install
   uds zarf tools kubectl get all -n podinfo
   ```
 
-- Can you access the application in a browser: `podinfo.uds.dev`
+- Can you access the application in a browser: [podinfo.uds.dev](podinfo.uds.dev)
 
 ---
 
@@ -170,7 +170,7 @@ uds run test-install
   uds zarf tools kubectl get all -n podtato-head
   ```
 
-- Can you access the application in a browser: `podtato-head.uds.dev`
+- Can you access the application in a browser: [podtato-head.uds.dev](podtato-head.uds.dev)
 - If it wasn't successful, find and fix the issue(s) and run the `dev` task: `uds run dev`
 
 ---
