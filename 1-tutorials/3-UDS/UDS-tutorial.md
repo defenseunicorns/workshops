@@ -79,7 +79,7 @@ Continue following steps below at [https://keycloak.admin.uds.dev](https://keycl
 ### Add user to group “UDS Core/Admin” in Keycloak UDS realm
 
 - Open in a browser: [keycloak.admin.uds.dev](https://keycloak.admin.uds.dev)
-- Select "Unicorn Delivery Service - uds" realm from top left dropdown
+- Manage realms > choose "uds - Unicorn Delivery Service" (should be reflected in the top left "Current realm")
 - Manage > Users (left nav) > [[username]] > Groups (tab) > "Join Group" button
 - UDS Core > Admin > select checkbox & "Join" button
 
