@@ -52,8 +52,29 @@ uds zarf tools kubectl get pods -oyaml $(uds zarf tools kubectl get pods -lapp=m
 
 ---
 
-### 9. Deploy the Podinfo Zarf Package and Define a Custom Resource
+### 9. Build & Deploy the Podinfo Zarf Package and Define a Custom Resource
 ```bash
+cat <<EOF > zarf.yaml
+kind: ZarfPackageConfig
+metadata:
+  name: podinfo
+  version: 0.0.1
+components:
+  - name: podinfo
+    required: true
+    charts:
+      - name: podinfo
+        version: 6.4.0
+        namespace: podinfo
+        url: oci://ghcr.io/stefanprodan/charts/podinfo
+        valuesFiles:
+          - values.yaml
+    images:
+      - ghcr.io/stefanprodan/podinfo:6.4.0
+      - ghcr.io/stefanprodan/podinfo:sha256-57a654ace69ec02ba8973093b6a786faa15640575fbf0dbb603db55aca2ccec8.sig
+EOF
+curl -O https://raw.githubusercontent.com/zarf-dev/zarf/refs/heads/main/examples/helm-charts/values.yaml
+uds zarf package create ./ --confirm
 uds zarf package deploy zarf-package-*.zst --confirm
 ```
 
