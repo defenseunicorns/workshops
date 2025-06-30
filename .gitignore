@@ -5,3 +5,4 @@ Thumbs.db
 *.tar.zst
 
 test-pkg-**/
+zarf-sbom/
