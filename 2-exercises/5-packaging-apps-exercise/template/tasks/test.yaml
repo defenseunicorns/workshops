@@ -11,6 +11,7 @@ tasks:
   - name: health-check
     actions:
       - description: #TEMPLATE_APPLICATION_DISPLAY_NAME# Health Check
+        maxTotalSeconds: 30
         wait:
           cluster:
             kind: Deployment
@@ -21,7 +22,7 @@ tasks:
   - name: ingress
     actions:
       - description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Status Check
-        maxRetries: 30
+        maxTotalSeconds: 30
         cmd: |
           STATUS=$(curl -L -o /dev/null -s -w "%{http_code}\n" https://#TEMPLATE_APPLICATION_NAME#.uds.dev)
           echo "#TEMPLATE_APPLICATION_DISPLAY_NAME# system status: ${STATUS}"

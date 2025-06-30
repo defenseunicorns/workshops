@@ -39,7 +39,7 @@ spec:
   # Customize network policies and expose services via istio
   network:
     expose:
-      - service: #TEMPLATE_APPLICATION_NAME#
+      - service: #TEMPLATE_APPLICATION_SERVICE_NAME#
         podLabels:
           app: #TEMPLATE_APPLICATION_NAME#
         gateway: tenant
