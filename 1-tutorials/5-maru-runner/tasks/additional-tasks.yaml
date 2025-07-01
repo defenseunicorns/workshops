@@ -7,14 +7,14 @@ tasks:
     actions:
       - cmd: |
           # List of compliments
-          compliments=(
-             "you are smart"
-             "you are stylish"
-             "you are an inspiration"
-             "you are #1 in my book"
-             "you are a unicorn"
-          )
-          # Get a random index from the array and send it!
-          random_index=$(( RANDOM % ${#compliments[@]} ))
-          echo "${compliments[$random_index]}!!!"
+          compliments='
+          - you are smart
+          - you are stylish
+          - you are an inspiration
+          - you are #1 in my book
+          - you are a unicorn
+          '
+          # Get a random item from the list and send it!
+          selected=$(echo "$compliments" | uds zarf tools yq 'shuffle | .[0]')
+          echo "${selected}!!!"
         description: "Giving a compliment"
