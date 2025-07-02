@@ -123,6 +123,7 @@ uds zarf tools kubectl apply -f uds-package.yaml
 uds zarf tools kubectl get packages.uds.dev -A
 uds zarf tools kubectl get netpol -n podinfo
 uds zarf tools kubectl get virtualservices -A
+uds zarf tools kubectl get authorizationpolicies -n podinfo
 uds zarf tools kubectl get servicemonitors,podmonitors -n podinfo
 ```
 
