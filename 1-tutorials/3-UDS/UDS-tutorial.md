@@ -66,7 +66,7 @@ uds zarf connect keycloak
 
 ### 4. In Keycloak's UI, disable MFA
 
-Continue following steps below at [https://keycloak.admin.uds.dev](https://keycloak.admin.uds.dev) (user: admin & password: (set manually OR from output above))
+Continue following steps below at [https://keycloak.admin.uds.dev](https://keycloak.admin.uds.dev) (user: admin & password: (set manually))
 
 - Manage realms > choose "uds - Unicorn Delivery Service" (should be reflected in the top left "Current realm")
 - Configure > Authentication (left nav) > Flows (tab) > UDS Authentication > Conditional OTP (flow) > choose "Disabled" from dropdown
