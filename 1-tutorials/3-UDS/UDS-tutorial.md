@@ -8,10 +8,10 @@ For information on UDS, explore the links below:
 
 ---
 
-### Deploy UDS Core K3d demo (~10-20 mins)
+### 1. Deploy UDS Core K3d demo (~10-20 mins)
 
 ```sh
-uds deploy k3d-core-demo:0.45.1 --confirm
+uds deploy k3d-core-demo:0.52.1 --confirm
 ```
 
 In another terminal window, monitor the deployment:
@@ -23,22 +23,35 @@ while :; do uds zarf package list; helm ls -A; sleep 10; clear; done
 
 ---
 
-### After successful deploy, inspect deployed resources
+### 2. After successful deploy, inspect deployed resources
+
+```sh
+uds zarf package list
+```
+
+```sh
+helm ls -A
+```
 
 ```sh
 uds zarf tools kubectl get pods -A
-uds zarf tools kubectl get packages.uds.dev -A
-uds zarf tools kubectl get exemptions -A
-uds zarf tools kubectl get netpol -A
-uds zarf tools kubectl get gateways,virtualservices,authorizationpolicies -A
+```
+
+```sh
+uds zarf tools kubectl get packages.uds.dev,exemptions.uds.dev -A
+```
+
+```sh
+uds zarf tools kubectl get gw,netpol,authorizationpolicies,virtualservices -A
+```
+
+```sh
 uds zarf tools kubectl get servicemonitors,podmonitors -A
 ```
 
 ---
 
-### Connect to Keycloak, setup admin user, disable MFA
-
-#### For local machine
+### 3. Connect to Keycloak, setup admin user, disable MFA
 
 ```sh
 uds zarf connect keycloak
@@ -49,18 +62,11 @@ uds zarf connect keycloak
 - set the admin user password: **YOURPASSWORDHERE**
 - login (as admin user)
 
-
-#### For Instruqt (create admin user using script)
-
-```sh
-curl -sOL https://raw.githubusercontent.com/defenseunicorns/uds-core/refs/tags/v0.45.1/tasks/utils.yaml && uds run -f utils.yaml keycloak-admin-user && kubectl get secret -n keycloak keycloak-admin-password --template='{{ index .data.password | base64decode}}'; echo
-```
-
 ---
 
-Continue following steps below at [https://keycloak.admin.uds.dev](https://keycloak.admin.uds.dev) (user: admin & password: (set manually OR from output above))
+### 4. In Keycloak's UI, disable MFA
 
-### In Keycloak's UI, disable MFA
+Continue following steps below at [https://keycloak.admin.uds.dev](https://keycloak.admin.uds.dev) (user: admin & password: (set manually))
 
 - Manage realms > choose "uds - Unicorn Delivery Service" (should be reflected in the top left "Current realm")
 - Configure > Authentication (left nav) > Flows (tab) > UDS Authentication > Conditional OTP (flow) > choose "Disabled" from dropdown
@@ -69,14 +75,14 @@ Continue following steps below at [https://keycloak.admin.uds.dev](https://keycl
 
 ---
 
-### Register a user
+### 5. Register a user
 
 - Open in a browser: [sso.uds.dev](https://sso.uds.dev)
 - Register now (at the bottom)
 
 ---
 
-### Add user to group “UDS Core/Admin” in Keycloak UDS realm
+### 6. Add user to group “UDS Core/Admin” in Keycloak UDS realm
 
 - Open in a browser: [keycloak.admin.uds.dev](https://keycloak.admin.uds.dev)
 - Manage realms > choose "uds - Unicorn Delivery Service" (should be reflected in the top left "Current realm")
@@ -85,15 +91,15 @@ Continue following steps below at [https://keycloak.admin.uds.dev](https://keycl
 
 ---
 
-### Login to an admin tool
+### 7. Login to an admin tool
 
 - Open in a browser: [grafana.admin.uds.dev](https://grafana.admin.uds.dev)
 - Dashboards (left nav) > Loki Dashboard quick search
-- Namespace: `keycloak` & pod: All & search: [[username]]
+- Namespace: `keycloak` & pod: `All` & search: [[username]]
 
 ---
 
-### Tear down
+### 8. Tear down
 
 ```sh
 k3d cluster list

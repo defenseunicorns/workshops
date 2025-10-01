@@ -10,42 +10,74 @@ For information on Pepr, explore the links below:
 
 ### 1. Create a Cluster with a Lightweight Deploy of UDS Core (~5-10 mins)
 
-```sh
+```bash
 uds deploy k3d-core-slim-dev:latest --confirm
 ```
 
+---
+
 ### 2. See What Got Deployed
+
 ```bash
-uds zarf tools kubectl get po -A
+uds zarf tools kubectl get pods -A
 ```
 
+```bash
+uds zarf tools kubectl get validatingwebhookconfiguration,mutatingwebhookconfigurations --field-selector metadata.name=pepr-uds-core
+```
+
+```bash
+( echo -e "NAME\tKIND"; uds zarf tools kubectl get crd -o jsonpath='{range .items[?(@.spec.group=="uds.dev")]}{.metadata.name}{"\t"}{.spec.names.kind}{"\n"}{end}'; ) | column -t
+```
+
+---
+
 ### 3. Try and Do Bad Things
+
 ```bash
 uds zarf tools kubectl create service nodeport my-svc --tcp=5678:8080
+```
+
+```bash
 uds zarf tools kubectl run my-pod --image=busybox --privileged=true -- date
 ```
 
+---
+
 ### 4. Review Pepr Logs
+
 ```bash
-uds monitor pepr denied
+uds monitor pepr -t denied
 ```
 
+---
+
 ### 5. Loosely Define an Application Spec
+
 ```bash
 uds zarf tools kubectl create deployment my-dep -oyaml --dry-run=client --image=busybox -- date > my-dep.yaml && uds zarf tools yq my-dep.yaml
 ```
 
-### 6. Deploy the Application
+---
+
+### 6. Monitor live output from Pepr (in another terminal window)
+
+```bash
+uds monitor pepr -t -f
+```
+
+---
+
+### 7. Deploy the Application
+
 ```bash
 uds zarf tools kubectl apply -f my-dep.yaml
 ```
 
-### 7. How Did Pepr Help?
-```bash
-uds monitor pepr mutated
-```
+---
 
 ### 8. View the Modified Application Spec
+
 ```bash
 uds zarf tools kubectl get pods -oyaml $(uds zarf tools kubectl get pods -lapp=my-dep -o jsonpath="{.items[0].metadata.name}") | uds zarf tools yq 'del(.status)'
 ```
@@ -53,6 +85,7 @@ uds zarf tools kubectl get pods -oyaml $(uds zarf tools kubectl get pods -lapp=m
 ---
 
 ### 9. Build & Deploy the Podinfo Zarf Package and Define a Custom Resource
+
 ```bash
 cat <<EOF > zarf.yaml
 kind: ZarfPackageConfig
@@ -79,6 +112,7 @@ uds zarf package deploy zarf-package-*.zst --confirm
 ```
 
 Create the custom resource:
+
 ```bash
 cat <<EOF > uds-package.yaml
 apiVersion: uds.dev/v1alpha1
@@ -106,36 +140,44 @@ spec:
       targetPort: 9797
       portName: http-metrics
 EOF
-```
-
-View the resource file:
-```bash
 uds zarf tools yq uds-package.yaml
 ```
 
+---
+
 ### 10. Deploy the Custom Resource
+
 ```sh
 uds zarf tools kubectl apply -f uds-package.yaml
 ```
 
+---
+
 ### 11. Watch - What Did Pepr Do?
+
 ```bash
 uds zarf tools kubectl get packages.uds.dev -A
-uds zarf tools kubectl get netpol -n podinfo
-uds zarf tools kubectl get virtualservices -A
-uds zarf tools kubectl get authorizationpolicies -n podinfo
+```
+
+```bash
 uds zarf tools kubectl get servicemonitors,podmonitors -n podinfo
+```
+
+```bash
+uds zarf tools kubectl get netpol,authorizationpolicies,virtualservices -n podinfo
 ```
 
 ---
 
 ### 12. See the Results
+
 Open in a browser:
 **[podinfo.uds.dev](http://podinfo.uds.dev)**
 
 ---
 
 ### 13. Tear Down
+
 ```bash
 k3d cluster list
 k3d cluster delete --all

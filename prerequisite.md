@@ -35,14 +35,3 @@ k9s \
 helm \
 uds
 ```
-
-### Instruqt only
-- Launch the Instruqt lab, and get the machine external IP
-```bash
-curl ifconfig.co
-```
-
-- Update your local machine’s hosts file with entry
-```bash
-INSTRUQT-IP-HERE  podinfo.uds.dev sso.uds.dev grafana.admin.uds.dev keycloak.admin.uds.dev neuvector.admin.uds.dev
-```
