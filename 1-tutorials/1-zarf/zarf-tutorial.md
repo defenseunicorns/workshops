@@ -10,6 +10,7 @@ For information on zarf, explore the links below:
 ---
 
 ### 1. Define a zarf.yaml that Packages the Podinfo Helm Chart
+
 ```bash
 cat <<EOF > zarf.yaml
 kind: ZarfPackageConfig
@@ -32,35 +33,45 @@ components:
 EOF
 ```
 
+---
+
 ### 2. Download an Example Values File and Review the zarf.yaml
+
 ```bash
 curl -O https://raw.githubusercontent.com/zarf-dev/zarf/refs/heads/main/examples/helm-charts/values.yaml
 uds zarf tools yq zarf.yaml
 ```
 
+---
+
 ### 3. Build the Zarf Podinfo Package
+
 ```bash
 uds zarf package create ./ --confirm
 ls -l zarf-package-*.zst
 ```
 
+---
+
 ### 4. Look at the Package Software Bill Of Materials (SBOM)
+
 ```bash
 uds zarf package inspect sbom zarf-package-*.zst
 open podinfo/sbom-viewer-ghcr.io_stefanprodan_podinfo_*.html  # Or open file directly in your browser
-
-# Instruqt alternative
-uds zarf package inspect sbom zarf-package-*.zst
-uds zarf tools yq podinfo/ghcr.io_stefanprodan_podinfo_*.json | more
-# Ctrl+c when done to exit
 ```
 
+---
+
 ### 5. Setup a Local Dev K8s Cluster
+
 ```bash
 k3d cluster create zarf-test
 ```
 
+---
+
 ### 6. Perform a Zarf Init
+
 ```bash
 uds zarf init
 # ? Do you want to pull this init package? y
@@ -69,35 +80,64 @@ uds zarf init
 # ? Deploy the git-server component? N
 ```
 
+---
+
 ### 7. Check What is Deployed
+
 ```bash
 uds zarf tools kubectl get pods -A
 ```
 
+```bash
+uds zarf tools kubectl get svc -n zarf -l release=zarf-docker-registry
+```
+
+```bash
+uds zarf tools kubectl get validatingwebhookconfiguration,mutatingwebhookconfigurations --field-selector metadata.name=zarf
+```
+
+---
+
 ### 8. Deploy the Zarf Podinfo Package
+
 *(If adventurous, and running locally, turn off the wifi before running the command then back on after deploy completes)*
 ```bash
 uds zarf package deploy zarf-package-*.zst --confirm
 ```
 
+---
+
 ### 9. Check Results
+
 ```bash
 helm ls -n podinfo
+```
+
+```bash
 uds zarf tools kubectl get all -n podinfo
 ```
 
+```bash
+uds zarf tools registry ls 127.0.0.1:31999/stefanprodan/podinfo
+```
+
+```bash
+uds zarf tools kubectl -n podinfo get pods -l app.kubernetes.io/name=podinfo -o jsonpath='{.items[0].spec.containers[*].image}'
+```
+
+---
+
 ### 10. View the Podinfo Service
+
 ```bash
 uds zarf connect --namespace=podinfo --name=podinfo --remote-port=9898 --local-port=9999
 # Ctrl+c when done to exit
-
-# For Instruqt
-kubectl port-forward --address=0.0.0.0 -n podinfo svc/podinfo 9999:9898
-# Select "Browser (Port-forward)"
-# Ctrl+c when done to exit
 ```
 
+---
+
 ### 11. Tear Down
+
 ```bash
 k3d cluster list
 k3d cluster delete --all
