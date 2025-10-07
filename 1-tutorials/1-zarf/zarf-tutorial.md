@@ -51,6 +51,9 @@ uds zarf package create ./ --confirm
 ls -l zarf-package-*.zst
 ```
 
+NOTES:
+* [Packaging Info around zstd](https://github.com/zarf-dev/zarf/blob/d11d623c2c8966a6c3f159a201dc909cd1545832/site/src/content/docs/ref/packages.mdx#L70)
+
 ---
 
 ### 4. Look at the Package Software Bill Of Materials (SBOM)
@@ -133,6 +136,8 @@ uds zarf tools kubectl -n podinfo get pods -l app.kubernetes.io/name=podinfo -o 
 uds zarf connect --namespace=podinfo --name=podinfo --remote-port=9898 --local-port=9999
 # Ctrl+c when done to exit
 ```
+
+NOTE: If you went the adventurous route, podinfo does reference external CSS urls so remember that it 'renders' but it's empty on the screen. Feel free to run `curl https://127.0.0.1:9999`
 
 ---
 
