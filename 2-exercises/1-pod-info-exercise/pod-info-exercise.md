@@ -12,7 +12,7 @@
 
 ```bash
 uds zarf package create
-uds zarf package deploy {zarf-package.tar.zst}
+uds zarf package deploy zarf-package-podinfo-*.tar.zst
 ```
 > [!NOTE]
 > The deployment of this app can be monitored in k9s by running `uds zarf tools monitor`. Here you can monitoring all namespaces or the 'podinfo' namespace.
