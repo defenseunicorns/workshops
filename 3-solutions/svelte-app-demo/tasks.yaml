@@ -46,5 +46,5 @@ tasks:
     description: Build the UI image, redeploy, and cycle the pod
     actions:
       - task: package-ui
-      - cmd: uds zarf package deploy build/zarf-package-svelte-ui-*-0.0.1.tar.zst --confirm
+      - cmd: uds zarf package deploy build/zarf-package-svelte-ui-*.tar.zst --confirm
       - cmd: uds zarf tools kubectl delete pod -n svelte-ui $(uds zarf tools kubectl get pods -n svelte-ui | grep ui- | awk '{print $1}')
