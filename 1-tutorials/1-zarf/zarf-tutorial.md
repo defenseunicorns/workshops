@@ -52,7 +52,7 @@ ls -l zarf-package-*.zst
 ```
 
 NOTES:
-* [Packaging Info around zstd](https://github.com/zarf-dev/zarf/blob/d11d623c2c8966a6c3f159a201dc909cd1545832/site/src/content/docs/ref/packages.mdx#L70)
+* [Packaging Info around zstd](https://github.com/zarf-dev/zarf/blob/d11d623c2c8966a6c3f159a201dc909cd1545832/site/src/content/docs/ref/packages.mdx#local-tarball-path-tar-and-tarzst)
 
 ---
 
