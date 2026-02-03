@@ -3,9 +3,9 @@
 
 includes:
   - demo: ./tasks/demo-tasks.yaml
-  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/create.yaml
-  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/deploy.yaml
-  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.6.0/tasks/setup.yaml
+  - create: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.20.3/tasks/create.yaml
+  - deploy: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.20.3/tasks/deploy.yaml
+  - setup: https://raw.githubusercontent.com/defenseunicorns/uds-common/v1.20.3/tasks/setup.yaml
 
 
 tasks:
