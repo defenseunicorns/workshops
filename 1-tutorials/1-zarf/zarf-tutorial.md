@@ -137,7 +137,7 @@ uds zarf tools kubectl -n podinfo get pods -l app.kubernetes.io/name=podinfo -o 
 ```
 
 NOTE:
-* [Info around image mutatione](https://docs.zarf.dev/ref/init-package/#image-mutation-to-unique-hashed-tags)
+* [Info around image mutation](https://docs.zarf.dev/ref/init-package/#image-mutation-to-unique-hashed-tags)
 
 ---
 
