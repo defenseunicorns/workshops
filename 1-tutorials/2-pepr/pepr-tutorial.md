@@ -8,11 +8,22 @@ For information on Pepr, explore the links below:
 
 ---
 
+### 0. Pre-flight check to verify environment is ready (namely that Docker running)
+
+```console
+docker ps
+```
+
+---
+
 ### 1. Create a Cluster with a Lightweight Deploy of UDS Core (~5-10 mins)
 
 ```bash
-uds deploy k3d-core-slim-dev:latest --confirm
+uds pull k3d-core-slim-dev:latest -o ../../wip/
+uds deploy ../../wip/uds-bundle-k3d-core-slim-dev-*.zst --confirm
 ```
+
+NOTE: Alternatively, this could also be deployed directly from the OCI reference by running `uds deploy k3d-core-slim-dev:latest --confirm`
 
 ---
 

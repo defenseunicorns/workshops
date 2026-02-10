@@ -14,6 +14,19 @@ cp -rfv template/ test-pkg-podinfo && cd test-pkg-podinfo
 
 ---
 
+### View directory setup and example placehoders after copying from template
+
+```console
+tree ../template
+tree -I template ../
+```
+
+```console
+uds zarf tools yq zarf.yaml
+```
+
+---
+
 ### Replace placeholders using a script
 
 ```console

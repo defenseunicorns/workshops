@@ -8,11 +8,23 @@ For information on UDS, explore the links below:
 
 ---
 
+### 0. Pre-flight check to verify environment is ready (namely that Docker running)
+
+```console
+docker ps
+```
+
+---
+
 ### 1. Deploy UDS Core K3d demo (~10-20 mins)
 
 ```sh
-uds deploy k3d-core-demo:0.52.1 --confirm
+export LATEST_UDS_VERSION="0.61.0"
+ls -1 ../../wip/uds-bundle-k3d-core-demo-*.zst >/dev/null 2>&1 || uds pull k3d-core-demo:${LATEST_UDS_VERSION} -o ../../wip/
+uds deploy ../../wip/uds-bundle-k3d-core-demo-*.zst --confirm
 ```
+
+NOTE: Alternatively, this could also be deployed directly from the OCI reference by running `uds deploy k3d-core-demo:${LATEST_UDS_VERSION} --confirm`
 
 In another terminal window, monitor the deployment:
 
@@ -58,9 +70,9 @@ uds zarf connect keycloak
 # follow prompt to get connection URL for the browser
 ```
 
-- define an admin user: `admin`
-- set the admin user password: **YOURPASSWORDHERE**
-- login (as admin user)
+- Define an admin user: `admin`
+- Set the admin user password: **YOURPASSWORDHERE**
+- Login (as admin user)
 
 ---
 
@@ -78,7 +90,7 @@ Continue following steps below at [https://keycloak.admin.uds.dev](https://keycl
 ### 5. Register a user
 
 - Open in a browser: [sso.uds.dev](https://sso.uds.dev)
-- Register now (at the bottom)
+- Create Account (at the bottom)
 
 ---
 
