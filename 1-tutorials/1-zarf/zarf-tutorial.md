@@ -9,6 +9,14 @@ For information on zarf, explore the links below:
 
 ---
 
+### 0. Pre-flight check to verify environment is ready (namely that Docker running)
+
+```console
+docker ps
+```
+
+---
+
 ### 1. Define a zarf.yaml that Packages the Podinfo Helm Chart
 
 ```bash
@@ -51,8 +59,8 @@ uds zarf package create ./ --confirm
 ls -l zarf-package-*.zst
 ```
 
-NOTES:
-* [Packaging Info around zstd](https://github.com/zarf-dev/zarf/blob/d11d623c2c8966a6c3f159a201dc909cd1545832/site/src/content/docs/ref/packages.mdx#local-tarball-path-tar-and-tarzst)
+NOTE:
+* [Packaging Info around zstd](https://docs.zarf.dev/ref/packages/#local-tarball-path-tar-and-tarzst)
 
 ---
 
@@ -127,6 +135,9 @@ uds zarf tools registry ls 127.0.0.1:31999/stefanprodan/podinfo
 ```bash
 uds zarf tools kubectl -n podinfo get pods -l app.kubernetes.io/name=podinfo -o jsonpath='{.items[0].spec.containers[*].image}'
 ```
+
+NOTE:
+* [Info around image mutation](https://docs.zarf.dev/ref/init-package/#image-mutation-to-unique-hashed-tags)
 
 ---
 

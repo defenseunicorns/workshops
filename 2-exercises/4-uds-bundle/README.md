@@ -16,9 +16,13 @@ docker ps
 
 ### 1. Kick off the deploy for the UDS Core K3d demo (~10-20 mins) - can continue with next steps in another window
 
-```console
-uds deploy k3d-core-demo:0.52.1 --confirm
+```sh
+export LATEST_UDS_VERSION="0.61.0"
+ls -1 ../../wip/uds-bundle-k3d-core-demo-*.zst >/dev/null 2>&1 || uds pull k3d-core-demo:${LATEST_UDS_VERSION} -o ../../wip/
+uds deploy ../../wip/uds-bundle-k3d-core-demo-*.zst --confirm
 ```
+
+NOTE: Alternatively, this could also be deployed directly from the OCI reference by running `uds deploy k3d-core-demo:${LATEST_UDS_VERSION} --confirm`
 
 ---
 
@@ -107,7 +111,7 @@ Now that we have a UDS Bundle, let’s deploy it.
 ### 10. Ensure UDS Core is ready before continuing
 
 ```console
-helm ls -Aa
+helm ls -A
 ```
 
 ---
@@ -155,9 +159,9 @@ uds zarf connect keycloak
 # follow prompt to get connection URL for the browser
 ```
 
-- define an admin user: `admin`
-- set the admin user password: **YOURPASSWORDHERE**
-- login (as admin user)
+- Define an admin user: `admin`
+- Set the admin user password: **YOURPASSWORDHERE**
+- Login (as admin user)
 
 ---
 
@@ -172,14 +176,14 @@ uds zarf connect keycloak
 
 ### 15. Register a user
 
-- open in a browser: `sso.uds.dev`
-- register now (at the bottom)
+- Open in a browser: [sso.uds.dev](https://sso.uds.dev)
+- Create Account (at the bottom)
 
 ---
 
 ### 16. Add user to group “UDS Core/Admin” in keycloak **uds** realm
 
-- open in a browser: `keycloak.admin.uds.dev`
+- Open in a browser: [keycloak.admin.uds.dev](https://keycloak.admin.uds.dev)
 - Manage realms > choose "uds - Unicorn Delivery Service" (should be reflected in the top left "Current realm")
 - Manage > Users (left nav) > [[username]] > Groups (tab) > "Join Group" button
 - UDS Core > Admin > select checkbox & "Join" button
@@ -188,13 +192,13 @@ uds zarf connect keycloak
 
 ### 17. See the results
 
-- open in a browser: `podinfo.uds.dev`
+- Open in a browser: [podinfo.uds.dev](https://podinfo.uds.dev)
 
 ---
 
 ### 18. Look at Keycloak
 
-- open in a browser: `keycloak.admin.uds.dev`
+- Open in a browser: [keycloak.admin.uds.dev](https://keycloak.admin.uds.dev)
 - select "Unicorn Delivery Service - uds" realm from top left dropdown
 - Clients
 - Sessions
@@ -203,13 +207,13 @@ uds zarf connect keycloak
 
 ### 19. Look at Grafana
 
-- open in a browser: `grafana.admin.uds.dev`
+- Open in a browser: [grafana.admin.uds.dev](https://grafana.admin.uds.dev)
 - Dashboards (left nav) > New (far right button) > New dashboard (from drop down) > Add visualization (button)
-- select Prometheus as the datasource
+- Select Prometheus as the datasource
 - "A" > Code (toggle from Builder) > paste this code PromQL query:
-  - `go_memstats_heap_alloc_bytes{pod_name=~"podinfo.*"}`
+  - `go_memstats_heap_alloc_bytes{pod=~"podinfo.*"}`
 - Under Options > Legend > Custom (from drop down) > enter this:
-  - `{{pod_name}}`
+  - `{{pod}}`
 - Adjust Timeframe to "Last 15 minutes" & Refresh to "Auto" (from drop downs)
 
 ---
@@ -276,7 +280,7 @@ uds deploy ./build/uds-bundle-*.zst --confirm
 
 ### 27. Verify the logo changed
 
--  open in a browser: `podinfo.uds.dev`
+- Open in a browser: [podinfo.uds.dev](https://podinfo.uds.dev)
 
 ---
 
