@@ -18,7 +18,7 @@ tasks:
     actions:
       - description: Create k3d cluster with slim UDS Core
         cmd: |
-          ls -1 ../../../wip/uds-bundle-k3d-core-slim-dev-*.zst >/dev/null 2>&1 || ./uds pull k3d-core-slim-dev:latest -o ../../wip/
+          ls -1 ../../../wip/uds-bundle-k3d-core-slim-dev-*.zst >/dev/null 2>&1 || ./uds pull k3d-core-slim-dev:latest -o ../../../wip/
           ./uds deploy ../../../wip/uds-bundle-k3d-core-slim-dev-*.zst --set INSECURE_ADMIN_PASSWORD_GENERATION=${{ .inputs.insecure_keycloak_admin }} --confirm --no-progress ${{ .inputs.options }}
 
   - name: print-keycloak-admin-password
