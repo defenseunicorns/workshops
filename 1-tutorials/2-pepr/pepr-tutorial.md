@@ -10,7 +10,7 @@ For information on Pepr, explore the links below:
 
 ### 0. Pre-flight check to verify environment is ready (namely that Docker running)
 
-```console
+```bash
 docker ps
 ```
 
@@ -19,7 +19,7 @@ docker ps
 ### 1. Create a Cluster with a Lightweight Deploy of UDS Core (~5-10 mins)
 
 ```bash
-uds pull k3d-core-slim-dev:latest -o ../../wip/
+ls -1 ../../wip/uds-bundle-k3d-core-slim-dev-*.zst >/dev/null 2>&1 || uds pull k3d-core-slim-dev:latest -o ../../wip/
 uds deploy ../../wip/uds-bundle-k3d-core-slim-dev-*.zst --confirm
 ```
 
@@ -158,7 +158,7 @@ uds zarf tools yq uds-package.yaml
 
 ### 10. Deploy the Custom Resource
 
-```sh
+```bash
 uds zarf tools kubectl apply -f uds-package.yaml
 ```
 

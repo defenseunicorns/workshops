@@ -11,7 +11,7 @@ For information on zarf, explore the links below:
 
 ### 0. Pre-flight check to verify environment is ready (namely that Docker running)
 
-```console
+```bash
 docker ps
 ```
 
