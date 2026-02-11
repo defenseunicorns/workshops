@@ -1,7 +1,8 @@
+#!/bin/bash
+
 # Copyright 2026 Defense Unicorns
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 
-#!/bin/bash
 
 # Check for correct number of arguments (should be 6)
 if [ "$#" -ne 6 ]; then
@@ -34,4 +35,3 @@ find . -type f -exec grep -Iq . {} \; -print | while IFS= read -r file; do
     sed "s|${pattern}|${replacement}|g" "$file" >"$file.sed" && mv "${file}.sed" "$file"
   done
 done
-
