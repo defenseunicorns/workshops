@@ -16,6 +16,14 @@ spec:
         host: podinfo
         port: 9898
     allow:
+      - direction: Ingress
+        selector:
+          app.kubernetes.io/name: podinfo
+        remoteNamespace: monitoring
+        remoteSelector:
+          app.kubernetes.io/name: prometheus
+        remoteServiceAccount: kube-prometheus-stack-prometheus
+        port: 9797
       - direction: Egress
         selector:
           app.kubernetes.io/name: podinfo
@@ -25,3 +33,14 @@ spec:
         app.kubernetes.io/name: podinfo
       targetPort: 9797
       portName: http-metrics
+      kind: PodMonitor
+  sso:
+    - name: Demo SSO podinfo
+      clientId: uds-core-podinfo
+      redirectUris:
+        - "https://podinfo.uds.dev/login"
+      enableAuthserviceSelector:
+        app.kubernetes.io/name: podinfo
+      groups:
+        anyOf:
+          - "/UDS Core/Admin"

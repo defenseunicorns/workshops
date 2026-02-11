@@ -1,0 +1,43 @@
+# Copyright 2026 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+includes:
+  - fun: ./tasks/additional-tasks.yaml
+
+variables:
+  - name: GREET
+    default: Hello
+
+tasks:
+  - name: default
+    description: "Default task"
+    actions:
+      - cmd: echo "Run default task"
+        description: "[*] Default task"
+
+  - name: example
+    description: "Example task"
+    actions:
+      - task: set-variable
+      - task: echo-variable
+
+  - name: set-variable
+    description: "Variable set task"
+    actions:
+      - cmd: echo "you"
+        description: "[*] Set who to greet"
+        setVariables:
+          - name: WHO
+        mute: true
+
+  - name: echo-variable
+    description: "Output task"
+    actions:
+      - cmd: echo "*************"
+      - cmd: echo "${GREET} ${WHO}!"
+        description: "[*] Send greetings"
+
+  - name: compliment
+    description: "Get a compliment"
+    actions:
+      - task: fun:compliment

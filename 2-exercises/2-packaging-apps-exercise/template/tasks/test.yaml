@@ -1,0 +1,32 @@
+# Copyright 2026 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+tasks:
+  - name: all
+    actions:
+      - task: health-check
+      - task: ingress
+
+  # Ensure application deploys successfully and becomes available
+  - name: health-check
+    actions:
+      - description: #TEMPLATE_APPLICATION_DISPLAY_NAME# Health Check
+        maxTotalSeconds: 30
+        wait:
+          cluster:
+            kind: Deployment
+            name: #TEMPLATE_APPLICATION_NAME#
+            namespace: #TEMPLATE_APPLICATION_NAME#
+            condition: Available
+
+  - name: ingress
+    actions:
+      - description: #TEMPLATE_APPLICATION_DISPLAY_NAME# UI Status Check
+        maxTotalSeconds: 30
+        cmd: |
+          STATUS=$(curl -L -o /dev/null -s -w "%{http_code}\n" https://#TEMPLATE_APPLICATION_NAME#.uds.dev)
+          echo "#TEMPLATE_APPLICATION_DISPLAY_NAME# system status: ${STATUS}"
+          if [ "$STATUS" != "200" ]; then
+            sleep 10
+            exit 1
+          fi

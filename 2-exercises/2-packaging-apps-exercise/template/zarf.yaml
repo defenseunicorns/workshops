@@ -1,0 +1,29 @@
+# Copyright 2026 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: #TEMPLATE_APPLICATION_NAME#
+  description: "UDS #TEMPLATE_APPLICATION_DISPLAY_NAME# package"
+  version: "dev"
+
+variables:
+  - name: EXAMPLE_VARIABLES
+    default: "examples"
+  - name: DOMAIN
+    default: "uds.dev"
+
+components:
+  - name: #TEMPLATE_APPLICATION_NAME#
+    required: true
+    description: "Deploy #TEMPLATE_APPLICATION_DISPLAY_NAME#"
+    import:
+      path: common
+    only:
+      flavor: upstream
+    charts:
+      - name: #TEMPLATE_APPLICATION_NAME#
+        valuesFiles:
+          - values/upstream-values.yaml
+    images: []

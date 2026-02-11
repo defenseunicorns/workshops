@@ -1,0 +1,50 @@
+# Copyright 2026 Defense Unicorns
+# SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
+
+includes:
+  - test: ./tasks/test.yaml
+  - create: ../uds-common/tasks/create.yaml
+  - lint: ../uds-common/tasks/lint.yaml
+  - deploy: ../uds-common/tasks/deploy.yaml
+  - setup: ../uds-common/tasks/setup.yaml
+
+tasks:
+  - name: default
+    description: Setup k3d cluster, deploy package
+    actions:
+      - task: lint:all
+      - task: create-dev-package
+      - task: setup:k3d-test-cluster
+      - task: create-deploy-test-bundle
+
+  - name: create-dev-package
+    description: Create the package
+    actions:
+      - task: create:package
+        with:
+          options: "--skip-sbom"
+
+  - name: create-deploy-test-bundle
+    description: Test and validate cluster is deployed with the package
+    actions:
+      - task: create:package
+      - task: create:test-bundle
+      - task: deploy:test-bundle
+      - task: setup:create-doug-user
+      - task: test:all
+
+  - name: dev
+    description: Create and deploy the bundle on an existing cluster (for iteration/dev speed)
+    actions:
+      - task: lint:all
+      - task: create-dev-package
+      - task: create:test-bundle
+      - task: deploy:test-bundle
+      - task: test:all
+
+  - name: test-install
+    description: Test deploying the current branch to a new cluster
+    actions:
+      - task: create-dev-package
+      - task: setup:k3d-test-cluster
+      - task: create-deploy-test-bundle
