@@ -68,10 +68,10 @@ uds zarf tools yq tasks.yaml
 
 ---
 
-### 7. Run task to install all lint tools
+### 7. Run task to install all lint tools and run lint task
 
 ```bash
-uds run lint:deps
+uds run lint:deps && uds run lint:all
 ```
 
 ---
@@ -93,7 +93,7 @@ uds run test-install
   uds zarf tools kubectl get all -n podinfo
   ```
 
-- Can you access the application in a browser: [podinfo.uds.dev](podinfo.uds.dev)
+- Can you access the application in a browser: [podinfo.uds.dev](https://podinfo.uds.dev)
 
 ---
 
@@ -193,7 +193,7 @@ uds run test-install
   uds zarf tools kubectl get all -n podtato-head
   ```
 
-- Can you access the application in a browser: [podtato-head.uds.dev](podtato-head.uds.dev)
+- Can you access the application in a browser: [podtato-head.uds.dev](https://podtato-head.uds.dev)
 - If it wasn't successful, find and fix the issue(s) and run the `dev` task: `uds run dev`
 
 ---
@@ -211,5 +211,5 @@ k3d cluster delete --all
 Inspect some example CI templates, and see what they have in common with the local development work just completed.
 
 ```bash
-uds zarf tools yq ../uds-common/templates/*.yaml
+uds zarf tools yq ../uds-common/templates/*.y*ml
 ```
