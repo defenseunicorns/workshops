@@ -22,7 +22,7 @@ cp -rfv template/ test-pkg-podinfo && cd test-pkg-podinfo
 
 ---
 
-### 2. View directory setup and example placehoders after copying from template
+### 2. View directory setup and example placeholders after copying from template
 
 ```bash
 tree ../template
