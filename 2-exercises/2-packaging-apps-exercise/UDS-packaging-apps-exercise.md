@@ -46,7 +46,7 @@ bash -xv setup.bash "#TEMPLATE_APPLICATION_NAME#"="podinfo" "#TEMPLATE_APPLICATI
 ### 4. Find images used by the chart and update the zarf.yaml
 
 ```bash
-uds zarf dev find-images ./ -f upstream --kube-version 1.32 --update
+uds zarf dev find-images ./ -f upstream --skip-cosign --kube-version 1.32 --update
 ```
 
 ---
@@ -155,7 +155,7 @@ bash -xv setup.bash "#TEMPLATE_APPLICATION_NAME#"="podtato-head" "#TEMPLATE_APPL
 ### 15. Find images used by the chart and update the zarf.yaml
 
 ```bash
-uds zarf dev find-images ./ -f upstream --kube-version 1.32 --update
+uds zarf dev find-images ./ -f upstream --skip-cosign --kube-version 1.32 --update
 ```
 
 ---
@@ -194,7 +194,7 @@ uds run test-install
   ```
 
 - Can you access the application in a browser: [podtato-head.uds.dev](https://podtato-head.uds.dev)
-- If it wasn't successful, find and fix the issue(s) and run the `dev` task: `uds run dev`
+- If it wasn't successful, find and fix the issue(s) - iterate after each change by running the `dev` task: `uds run dev`
 
 ---
 
