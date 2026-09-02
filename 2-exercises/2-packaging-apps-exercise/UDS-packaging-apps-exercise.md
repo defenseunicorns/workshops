@@ -194,7 +194,7 @@ uds run test-install
   ```
 
 - Can you access the application in a browser: [podtato-head.uds.dev](https://podtato-head.uds.dev)
-- If it wasn't successful, find and fix the issue(s) and run the `dev` task: `uds run dev`
+- If it wasn't successful, find and fix the issue(s) - iterate after each change by running the `dev` task: `uds run dev`
 
 ---
 
