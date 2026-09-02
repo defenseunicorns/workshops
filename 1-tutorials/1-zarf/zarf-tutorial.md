@@ -81,7 +81,7 @@ k3d cluster create zarf-test
 
 ---
 
-### 6. Perform a Zarf Init
+### 6. Perform a Zarf Init - Pay close attention to the prompts!
 
 ```bash
 uds zarf init

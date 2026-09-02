@@ -1,6 +1,6 @@
 # Tutorials
 
-Quick tutorials on key underlying UDS (Unicorn Delivery Service) technologies
+Quick tutorials on key underlying UDS (Unified Defense Stack) technologies
 
 - [Zarf](./1-zarf/zarf-tutorial.md)
 - [Pepr](./2-pepr/pepr-tutorial.md)

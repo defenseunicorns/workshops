@@ -19,7 +19,7 @@ docker ps
 ### 1. Deploy UDS Core K3d demo (~10-20 mins)
 
 ```bash
-export LATEST_UDS_VERSION="0.61.1"
+export LATEST_UDS_VERSION="1.11.1"
 ls -1 ../../wip/uds-bundle-k3d-core-demo-*.zst >/dev/null 2>&1 || uds pull k3d-core-demo:${LATEST_UDS_VERSION} -o ../../wip/
 uds deploy ../../wip/uds-bundle-k3d-core-demo-*.zst --confirm
 ```
@@ -80,7 +80,7 @@ uds zarf connect keycloak
 
 Continue following steps below at [https://keycloak.admin.uds.dev](https://keycloak.admin.uds.dev) (user: admin & password: (set manually))
 
-- Manage realms > choose "uds - Unicorn Delivery Service" (should be reflected in the top left "Current realm")
+- Manage realms > choose "uds - Unified Defense Stack" (should be reflected in the top left "Current realm")
 - Configure > Authentication (left nav) > Flows (tab) > UDS Authentication > Conditional OTP (flow) > choose "Disabled" from dropdown
 - Configure > Authentication (left nav) > Required Actions (tab) > Configure OTP > toggle Enabled option to "Off"
 - Ctrl+c (in the terminal session) when done to exit the Keycloak tunneling
@@ -97,7 +97,7 @@ Continue following steps below at [https://keycloak.admin.uds.dev](https://keycl
 ### 6. Add user to group “UDS Core/Admin” in Keycloak UDS realm
 
 - Open in a browser: [keycloak.admin.uds.dev](https://keycloak.admin.uds.dev)
-- Manage realms > choose "uds - Unicorn Delivery Service" (should be reflected in the top left "Current realm")
+- Manage realms > choose "uds - Unified Defense Stack" (should be reflected in the top left "Current realm")
 - Manage > Users (left nav) > [[username]] > Groups (tab) > "Join Group" button
 - UDS Core > Admin > select checkbox & "Join" button
 

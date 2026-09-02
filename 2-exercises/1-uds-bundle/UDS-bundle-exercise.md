@@ -17,7 +17,7 @@ docker ps
 ### 1. Kick off the deploy for the UDS Core K3d demo (~10-20 mins) - can continue with next steps in another window
 
 ```bash
-export LATEST_UDS_VERSION="0.61.1"
+export LATEST_UDS_VERSION="1.11.1"
 ls -1 ../../wip/uds-bundle-k3d-core-demo-*.zst >/dev/null 2>&1 || uds pull k3d-core-demo:${LATEST_UDS_VERSION} -o ../../wip/
 uds deploy ../../wip/uds-bundle-k3d-core-demo-*.zst --confirm
 ```
@@ -167,7 +167,7 @@ uds zarf connect keycloak
 
 ### 14. In Keycloak's UI, disable MFA
 
-- Manage realms > choose "uds - Unicorn Delivery Service" (should be reflected in the top left "Current realm")
+- Manage realms > choose "uds - Unified Defense Stack" (should be reflected in the top left "Current realm")
 - Configure > Authentication (left nav) > Flows (tab) > UDS Authentication > Conditional OTP (flow) > choose "Disabled" from dropdown
 - Configure > Authentication (left nav) > Required Actions (tab) > Configure OTP > toggle Enabled option to "Off"
 - Ctrl+c (in the terminal session) when done to exit the Keycloak tunneling
@@ -184,7 +184,7 @@ uds zarf connect keycloak
 ### 16. Add user to group “UDS Core/Admin” in keycloak **uds** realm
 
 - Open in a browser: [keycloak.admin.uds.dev](https://keycloak.admin.uds.dev)
-- Manage realms > choose "uds - Unicorn Delivery Service" (should be reflected in the top left "Current realm")
+- Manage realms > choose "uds - Unified Defense Stack" (should be reflected in the top left "Current realm")
 - Manage > Users (left nav) > [[username]] > Groups (tab) > "Join Group" button
 - UDS Core > Admin > select checkbox & "Join" button
 
@@ -199,7 +199,7 @@ uds zarf connect keycloak
 ### 18. Look at Keycloak
 
 - Open in a browser: [keycloak.admin.uds.dev](https://keycloak.admin.uds.dev)
-- select "Unicorn Delivery Service - uds" realm from top left dropdown
+- select "Unified Defense Stack - uds" realm from top left dropdown
 - Clients
 - Sessions
 
@@ -208,13 +208,14 @@ uds zarf connect keycloak
 ### 19. Look at Grafana
 
 - Open in a browser: [grafana.admin.uds.dev](https://grafana.admin.uds.dev)
-- Dashboards (left nav) > New (far right button) > New dashboard (from drop down) > Add visualization (button)
+- Dashboards (left nav) > New (far right button) > New dashboard (from drop down)
+- Select layout as Auto grid > Add a visualization panel (clicking the "+" button) > Configure visualization
 - Select Prometheus as the datasource
 - "A" > Code (toggle from Builder) > paste this code PromQL query:
   - `go_memstats_heap_alloc_bytes{pod=~"podinfo.*"}`
 - Under Options > Legend > Custom (from drop down) > enter this:
   - `{{pod}}`
-- Adjust Timeframe to "Last 15 minutes" & Refresh to "Auto" (from drop downs)
+- Adjust Timeframe to "Last 5 minutes" & Refresh to "Auto" (from drop downs)
 
 ---
 

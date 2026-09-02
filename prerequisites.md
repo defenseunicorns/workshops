@@ -28,20 +28,25 @@ Install Homebrew
 
 Install required packages
 ```bash
-brew tap defenseunicorns/tap && brew install \
-zarf \
-k3d \
-kubectl \
-k9s \
-helm \
-tree \
-pipx \
-uds
+brew update && brew upgrade --yes && \
+brew trust defenseunicorns/tap && \
+brew tap defenseunicorns/tap && \
+brew install -y \
+  zarf \
+  k3d \
+  kubectl \
+  k9s \
+  helm \
+  tree \
+  pipx \
+  crane \
+  oras \
+  uds
 ```
 
 ### (Optional) Stage UDS bundles
 ```bash
 ls -1 ./wip/uds-bundle-k3d-core-slim-dev-*.zst >/dev/null 2>&1 || uds pull k3d-core-slim-dev:latest -o ./wip/
-export LATEST_UDS_VERSION="0.61.1"
+export LATEST_UDS_VERSION="1.11.1"
 ls -1 ./wip/uds-bundle-k3d-core-demo-*.zst >/dev/null 2>&1 || uds pull k3d-core-demo:${LATEST_UDS_VERSION} -o ./wip/
 ```
