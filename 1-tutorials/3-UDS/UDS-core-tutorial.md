@@ -19,7 +19,7 @@ docker ps
 ### 1. Deploy UDS Core K3d demo (~10-20 mins)
 
 ```bash
-export LATEST_UDS_VERSION="1.11.1"
+export LATEST_UDS_VERSION="1.12.0"
 ls -1 ../../wip/uds-bundle-k3d-core-demo-*.zst >/dev/null 2>&1 || uds pull k3d-core-demo:${LATEST_UDS_VERSION} -o ../../wip/
 uds deploy ../../wip/uds-bundle-k3d-core-demo-*.zst --confirm
 ```
