@@ -23,6 +23,13 @@ ls -1 ../../wip/uds-bundle-k3d-core-slim-dev-*.zst >/dev/null 2>&1 || uds pull k
 uds deploy ../../wip/uds-bundle-k3d-core-slim-dev-*.zst --confirm
 ```
 
+For local Omen training connected to UDS Command Wifi
+```
+zarf tools registry login -u SA_7CCD-4D42-2A1E -p a38e4ee5e274816da561e173a9367064 registry.yourmission.delivery
+uds pull oci://registry.yourmission.delivery/public/k3d-core-slim-dev:1.12.0
+uds deploy k3d-core-slim-dev:1.12.0
+```
+
 NOTE: Alternatively, this could also be deployed directly from the OCI reference by running `uds deploy k3d-core-slim-dev:latest --confirm`
 
 ---
